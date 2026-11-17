@@ -17,9 +17,10 @@
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Amiri","Noto Naskh Arabic","Segoe UI",Tahoma,sans-serif;padding-bottom:190px}
-header{padding:22px 16px 8px;text-align:center}
+header{position:relative;padding:22px 16px 8px;text-align:center}
 h1{margin:0;font-size:28px;color:var(--acc)}
 header p{margin:6px 0 0;color:var(--mute);font-size:15px}
+.lang-btn{position:absolute;inset-inline-end:14px;top:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:7px 12px;font:inherit;font-size:14px;cursor:pointer}
 main{max-width:760px;margin:0 auto;padding:0 14px}
 h2{font-size:16px;margin:18px 4px 8px;color:var(--mute);font-weight:700}
 .chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px}
@@ -85,52 +86,52 @@ h1{display:flex;align-items:center;justify-content:center;gap:8px}h1 svg{width:4
 </style>
 </head>
 <body>
-<header><h1><svg viewBox="12 12 78 78" aria-hidden="true"><defs><mask id="cm"><rect x="0" y="0" width="100" height="100" fill="#fff"/><circle cx="59.8" cy="46" r="27.5" fill="#000"/></mask></defs><circle cx="50" cy="50" r="27.5" mask="url(#cm)" fill="var(--gold)"/><polygon points="67.4,28.4 65.8,33.0 60.9,33.1 64.8,36.0 63.4,40.7 67.4,37.9 71.4,40.7 70.0,36.0 73.9,33.1 69.0,33.0" fill="var(--gold)"/></svg>تقوى</h1><p>اختر القارئ ثم السورة — استماع متواصل بصوت نخبة من القرّاء</p></header>
+<header><button class="lang-btn" id="lang">English</button><h1><svg viewBox="12 12 78 78" aria-hidden="true"><defs><mask id="cm"><rect x="0" y="0" width="100" height="100" fill="#fff"/><circle cx="59.8" cy="46" r="27.5" fill="#000"/></mask></defs><circle cx="50" cy="50" r="27.5" mask="url(#cm)" fill="var(--gold)"/><polygon points="67.4,28.4 65.8,33.0 60.9,33.1 64.8,36.0 63.4,40.7 67.4,37.9 71.4,40.7 70.0,36.0 73.9,33.1 69.0,33.0" fill="var(--gold)"/></svg><span data-i18n="تقوى">تقوى</span></h1><p data-i18n="اختر القارئ ثم السورة — استماع متواصل بصوت نخبة من القرّاء">اختر القارئ ثم السورة — استماع متواصل بصوت نخبة من القرّاء</p></header>
 <nav>
-<button class="nv on" data-k="quran"><i>📖</i>القرآن</button>
-<button class="nv" data-k="prayer"><i>🕌</i>الصلاة</button>
-<button class="nv" data-k="adhkar"><i>📿</i>الأذكار</button>
-<button class="nv" data-k="qibla"><i>🧭</i>القبلة</button>
+<button class="nv on" data-k="quran"><i>📖</i><span data-i18n="القرآن">القرآن</span></button>
+<button class="nv" data-k="prayer"><i>🕌</i><span data-i18n="الصلاة">الصلاة</span></button>
+<button class="nv" data-k="adhkar"><i>📿</i><span data-i18n="الأذكار">الأذكار</span></button>
+<button class="nv" data-k="qibla"><i>🧭</i><span data-i18n="القبلة">القبلة</span></button>
 </nav>
 <main id="p-quran">
-<h2>القرّاء</h2>
+<h2 data-i18n="القرّاء">القرّاء</h2>
 <div class="chips" id="rec"></div>
-<h2>السور</h2>
-<div class="tools"><input type="search" id="q" placeholder="ابحث عن سورة…"><button class="tab" id="favTab">★ المفضلة</button></div>
+<h2 data-i18n="السور">السور</h2>
+<div class="tools"><input type="search" id="q" placeholder="ابحث عن سورة…"><button class="tab" id="favTab">★ <span data-i18n="المفضلة">المفضلة</span></button></div>
 <ul id="list"></ul>
 </main>
 <main id="p-prayer" hidden>
 <div class="card"><div class="hj" id="hj"></div><div class="nxt" id="nxt"></div><div class="cd" id="cd">--:--:--</div></div>
 <div id="adb" hidden></div>
-<div class="tools"><button class="tab" id="adt" style="padding:10px;flex:1">🔔 تنبيه الأذان: مغلق</button></div>
-<div class="tools" style="margin-top:8px"><select class="tab" id="city"></select><button class="tab" id="gps">📍 موقعي</button></div>
+<div class="tools"><button class="tab" id="adt" style="padding:10px;flex:1"></button></div>
+<div class="tools" style="margin-top:8px"><select class="tab" id="city"></select><button class="tab" id="gps">📍 <span data-i18n="موقعي">موقعي</span></button></div>
 <ul id="pt"></ul>
-<p class="note" id="pn">الحساب بطريقة أم القرى (الفجر 18.5°، العشاء بعد المغرب بـ 90 دقيقة) والعصر بالمذهب الجمهور. قد يختلف عن التقويم الرسمي بدقيقة أو دقيقتين.</p>
+<p class="note" id="pn" data-i18n="الحساب بطريقة أم القرى (الفجر 18.5°، العشاء بعد المغرب بـ 90 دقيقة) والعصر بالمذهب الجمهور. قد يختلف عن التقويم الرسمي بدقيقة أو دقيقتين.">الحساب بطريقة أم القرى (الفجر 18.5°، العشاء بعد المغرب بـ 90 دقيقة) والعصر بالمذهب الجمهور. قد يختلف عن التقويم الرسمي بدقيقة أو دقيقتين.</p>
 </main>
 <main id="p-adhkar" hidden>
 <div class="chips" id="ak"></div>
 <div id="az"></div>
-<div class="tools"><button class="tab" id="rs" style="padding:10px">↺ إعادة الضبط</button></div>
-<p class="note">اضغط على الذكر لإنقاص العدّاد.</p>
+<div class="tools"><button class="tab" id="rs" style="padding:10px">↺ <span data-i18n="إعادة الضبط">إعادة الضبط</span></button></div>
+<p class="note" data-i18n="اضغط على الذكر لإنقاص العدّاد.">اضغط على الذكر لإنقاص العدّاد.</p>
 </main>
 <main id="p-qibla" hidden>
 <div class="card">
 <div id="ql" class="hj"></div>
-<div id="dial"><div id="ring"><span>ش</span></div><div id="qn"></div></div>
+<div id="dial"><div id="ring"><span data-i18n="ش">ش</span></div><div id="qn"></div></div>
 <div id="qd" class="nxt"></div>
 <p class="note" id="qs"></p>
-<div class="tools"><button class="tab on" id="cmp" style="padding:10px">🧭 تفعيل البوصلة</button><button class="tab" id="gps2" style="padding:10px">📍 تحديد موقعي</button></div>
+<div class="tools"><button class="tab on" id="cmp" style="padding:10px">🧭 <span data-i18n="تفعيل البوصلة">تفعيل البوصلة</span></button><button class="tab" id="gps2" style="padding:10px">📍 <span data-i18n="تحديد موقعي">تحديد موقعي</span></button></div>
 </div>
 </main>
 <div id="bar"><div class="in">
-<div id="now"><b id="tt">اختر سورة للبدء</b><span id="rn"></span></div>
+<div id="now"><b id="tt" data-i18n="اختر سورة للبدء">اختر سورة للبدء</b><span id="rn"></span></div>
 <input type="range" id="seek" min="0" max="100" value="0" step="0.1">
 <div class="tm"><span id="cu">0:00</span><span id="du">0:00</span></div>
 <div class="ctl">
 <button id="rep" title="تكرار">🔁</button>
-<button id="nx" title="السورة التالية">⏮</button>
+<button id="nx" title="السورة السابقة">⏮</button>
 <button class="play" id="pl" title="تشغيل">▶</button>
-<button id="pv" title="السورة السابقة">⏭</button>
+<button id="pv" title="السورة التالية">⏭</button>
 <select id="sp" title="السرعة"><option value="0.8">0.8×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select>
 </div>
 <div id="msg"></div>
@@ -140,6 +141,35 @@ h1{display:flex;align-items:center;justify-content:center;gap:8px}h1 svg{width:4
 /* ===== Capacitor (تطبيق أصلي) ===== */
 const NATIVE=!!(window.Capacitor&&Capacitor.isNativePlatform&&Capacitor.isNativePlatform());
 const ADHAN_SOUND=null; /* مثال: "adhan.wav" بعد إضافة الملف للمشروع (انظر README) */
+let lang="ar";
+try{if(localStorage.getItem("qlang")==="en")lang="en"}catch(e){}
+const EN={
+"تقوى":"Taqwa","اختر القارئ ثم السورة — استماع متواصل بصوت نخبة من القرّاء":"Choose a reciter and surah for continuous listening from a selection of reciters",
+"القرآن":"Quran","الصلاة":"Prayer","الأذكار":"Adhkar","القبلة":"Qibla","القرّاء":"Reciters","السور":"Surahs","ابحث عن سورة…":"Search for a surah…","المفضلة":"Favorites","ش":"N",
+"موقعي":"My location","الحساب بطريقة أم القرى (الفجر 18.5°، العشاء بعد المغرب بـ 90 دقيقة) والعصر بالمذهب الجمهور. قد يختلف عن التقويم الرسمي بدقيقة أو دقيقتين.":"Calculated using Umm al-Qura (Fajr 18.5°, Isha 90 minutes after Maghrib) and the majority opinion for Asr. Times may differ from the official calendar by a minute or two.",
+"إعادة الضبط":"Reset","اضغط على الذكر لإنقاص العدّاد.":"Tap a dhikr to decrease its count.","تفعيل البوصلة":"Enable compass","تحديد موقعي":"Find my location","اختر سورة للبدء":"Choose a surah to start",
+"تكرار":"Repeat","السورة التالية":"Next surah","السورة السابقة":"Previous surah","تشغيل":"Play","السرعة":"Speed","سورة":"Surah","لا توجد نتائج":"No results",
+"الفجر":"Fajr","الشروق":"Sunrise","الظهر":"Dhuhr","العصر":"Asr","المغرب":"Maghrib","العشاء":"Isha","الرياض":"Riyadh","مكة المكرمة":"Makkah","المدينة المنورة":"Madinah","جدة":"Jeddah","الدمام":"Dammam","القاهرة":"Cairo","دبي":"Dubai","الكويت":"Kuwait City","عمّان":"Amman","صنعاء":"Sana'a","موقعي الحالي":"My current location",
+"مفعّل":"On","مغلق":"Off","تنبيه الأذان":"Adhan alert","القادم":"Next","حان الآن موعد صلاة":"It's time for","حان موعد صلاة":"Prayer time:","الموقع":"Location","من الشمال":"from north","تبعد مكة ≈":"Makkah is about","كم":"km away",
+"تعذّر تحميل الصوت هنا.":"Unable to load audio here.","افتح الملف مباشرة":"Open the audio file directly","أو جرّب قارئًا آخر.":"or try another reciter.",
+"تعذّر تحديد الموقع. فعّل إذن الموقع أو اختر مدينتك من القائمة.":"Unable to get your location. Allow location access or choose a city from the list.","تحديد الموقع غير مدعوم، اختر مدينتك من القائمة":"Location is not supported. Choose a city from the list.","تعذّر تحديد الموقع (قد يكون محجوبًا في هذه الصفحة). اختر مدينتك من القائمة.":"Unable to get your location (it may be blocked on this page). Choose a city from the list.",
+"📿 سبحة":"📿 Tasbeeh","✨ الأسماء الحسنى":"✨ Names of Allah","📖 ورد القرآن":"📖 Quran reading plan","☀️ الصباح":"☀️ Morning","🌙 المساء":"🌙 Evening","🕌 بعد الصلاة":"🕌 After prayer","😴 النوم":"😴 Before sleep","🌅 الاستيقاظ":"🌅 Upon waking",
+"بلا حد":"Unlimited","سَبِّح":"Count","✓ تم":"✓ Done","المتبقي":"Remaining","من":"of","الاسم":"Name","من 99":"of 99","اسم اليوم":"Name of the day","السابق":"Previous","التالي":"Next",
+"اختر مدة ختمة القرآن":"Choose a Quran completion plan","30 يومًا (جزء يوميًا)":"30 days (one juz per day)","15 يومًا (جزآن)":"15 days (two juz per day)","10 أيام (3 أجزاء)":"10 days (three juz per day)","6 أيام (5 أجزاء)":"6 days (five juz per day)",
+"أتممتَ":"Completed","يومًا":"days","🎉 ما شاء الله، أتممتَ الختمة":"🎉 MashaAllah, you completed the Quran","انتهت مدة الخطة":"The plan has ended","اضغط «إعادة الضبط» لبدء ختمة جديدة.":"Tap “Reset” to start a new completion plan.","اليوم":"Day","الجزء":"Juz","من الجزء":"From juz","إلى":"to","حتى قبل":"Up to","آية":"verse","حتى نهاية المصحف":"To the end of the Quran","يبدأ من":"Starts at","استمع من بداية الورد":"Listen from the start of today's reading","✓ تم ورد اليوم":"✓ Today's reading completed","✓ أتممت ورد اليوم":"✓ Mark today's reading complete",
+"لم يتم السماح باستخدام الحساس.":"Sensor permission was not granted.","جارٍ قراءة البوصلة… حرّك الجهاز قليلًا (على سطح مستوٍ).":"Reading compass… Move your device slightly (keep it level).","البوصلة غير متاحة على هذا الجهاز.":"The compass is unavailable on this device.","فعّل البوصلة لاستخدام حساس الجوال، أو وجّه الجهاز نحو الشمال ثم اتبع الزاوية أعلاه.":"Enable the compass sensor, or point your device north and follow the angle above.","✅ أنت باتجاه القبلة":"✅ You are facing the Qibla","أدر جهازك حتى تصبح 🕋 في أعلى الدائرة":"Rotate your device until 🕋 is at the top",
+"ص":"AM","م":"PM"
+};
+const tr=s=>lang==="en"?(EN[s]||s):s;
+const cityName=s=>s==="موقعي"?(lang==="en"?"My location":"موقعي"):(tr(s));
+function applyLanguage(){
+document.documentElement.lang=lang;document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+document.title=tr("تقوى")+" – "+(lang==="en"?"Quran, Prayer & Adhkar":"القرآن والصلاة والأذكار");
+document.querySelectorAll("[data-i18n]").forEach(el=>{el.textContent=tr(el.dataset.i18n)});
+$("lang").textContent=lang==="ar"?"English":"العربية";$("q").placeholder=tr("ابحث عن سورة…");
+["rep","nx","pl","pv","sp"].forEach(id=>$(id).title=tr(({rep:"تكرار",nx:"السورة التالية",pl:"تشغيل",pv:"السورة السابقة",sp:"السرعة"})[id]));
+if(si>=0)$("tt").textContent=tr("سورة")+" "+S[si];$("favTab").firstChild.textContent="★ ";
+}
 const S="الفاتحة,البقرة,آل عمران,النساء,المائدة,الأنعام,الأعراف,الأنفال,التوبة,يونس,هود,يوسف,الرعد,إبراهيم,الحجر,النحل,الإسراء,الكهف,مريم,طه,الأنبياء,الحج,المؤمنون,النور,الفرقان,الشعراء,النمل,القصص,العنكبوت,الروم,لقمان,السجدة,الأحزاب,سبأ,فاطر,يس,الصافات,ص,الزمر,غافر,فصلت,الشورى,الزخرف,الدخان,الجاثية,الأحقاف,محمد,الفتح,الحجرات,ق,الذاريات,الطور,النجم,القمر,الرحمن,الواقعة,الحديد,المجادلة,الحشر,الممتحنة,الصف,الجمعة,المنافقون,التغابن,الطلاق,التحريم,الملك,القلم,الحاقة,المعارج,نوح,الجن,المزمل,المدثر,القيامة,الإنسان,المرسلات,النبأ,النازعات,عبس,التكوير,الانفطار,المطففين,الانشقاق,البروج,الطارق,الأعلى,الغاشية,الفجر,البلد,الشمس,الليل,الضحى,الشرح,التين,العلق,القدر,البينة,الزلزلة,العاديات,القارعة,التكاثر,العصر,الهمزة,الفيل,قريش,الماعون,الكوثر,الكافرون,النصر,المسد,الإخلاص,الفلق,الناس".split(",");
 const R=[
 {n:"مشاري العفاسي",u:"https://server8.mp3quran.net/afs/"},
@@ -163,13 +193,13 @@ function chips(){$("rec").innerHTML=R.map((r,i)=>`<button class="chip ${i===ri?"
 function list(){
   const q=$("q").value.trim();
   const items=S.map((n,i)=>[n,i]).filter(([n,i])=>(!q||n.includes(q)||String(i+1)===q)&&(!favOnly||favs.includes(i)));
-  $("list").innerHTML=items.length?items.map(([n,i])=>`<li data-i="${i}" class="${i===si?"cur":""}"><span class="num">${i+1}</span><span class="nm">سورة ${n}</span><button class="fav ${favs.includes(i)?"on":""}" data-f="${i}">${favs.includes(i)?"★":"☆"}</button></li>`).join(""):`<div class="empty">لا توجد نتائج</div>`;
+  $("list").innerHTML=items.length?items.map(([n,i])=>`<li data-i="${i}" class="${i===si?"cur":""}"><span class="num">${i+1}</span><span class="nm">${tr("سورة")} ${n}</span><button class="fav ${favs.includes(i)?"on":""}" data-f="${i}">${favs.includes(i)?"★":"☆"}</button></li>`).join(""):`<div class="empty">${tr("لا توجد نتائج")}</div>`;
 }
 function play(s){
   si=(s+114)%114;$("msg").textContent="";
   au.src=url(ri,si);au.playbackRate=+$("sp").value;
   au.play().catch(()=>{});
-  $("tt").textContent="سورة "+S[si];$("rn").textContent=R[ri].n;list();
+  $("tt").textContent=tr("سورة")+" "+S[si];$("rn").textContent=R[ri].n;list();
 }
 $("rec").onclick=e=>{const b=e.target.closest(".chip");if(!b)return;ri=+b.dataset.i;save();chips();if(si>=0){const t=au.currentTime;play(si);au.addEventListener("loadedmetadata",()=>{au.currentTime=t},{once:true})}};
 $("list").onclick=e=>{const f=e.target.closest(".fav");if(f){const i=+f.dataset.f;favs=favs.includes(i)?favs.filter(x=>x!==i):[...favs,i];save();list();return}const li=e.target.closest("li");if(li)play(+li.dataset.i)};
@@ -183,7 +213,7 @@ au.onplay=()=>$("pl").textContent="⏸";au.onpause=()=>$("pl").textContent="▶"
 au.ontimeupdate=()=>{$("cu").textContent=fmt(au.currentTime);if(au.duration)$("seek").value=au.currentTime/au.duration*100};
 au.onloadedmetadata=()=>$("du").textContent=fmt(au.duration);
 au.onended=()=>{rep?(au.currentTime=0,au.play()):play(si+1)};
-au.onerror=()=>{if(si>=0)$("msg").innerHTML=`تعذّر تحميل الصوت هنا. <a href="${url(ri,si)}" target="_blank" rel="noopener">افتح الملف مباشرة</a> أو جرّب قارئًا آخر.`};
+au.onerror=()=>{if(si>=0)$("msg").innerHTML=`${tr("تعذّر تحميل الصوت هنا.")} <a href="${url(ri,si)}" target="_blank" rel="noopener">${tr("افتح الملف مباشرة")}</a> ${tr("أو جرّب قارئًا آخر.")}`};
 $("seek").oninput=()=>{if(au.duration)au.currentTime=$("seek").value/100*au.duration};
 
 /* ===== التبويبات ===== */
@@ -199,19 +229,20 @@ const C=[["الرياض",24.71,46.68,3],["مكة المكرمة",21.42,39.83,3],
 let loc={name:"الرياض",lat:24.71,lng:46.68,tz:3},hd=null;
 try{const x=JSON.parse(localStorage.getItem("qloc"));if(x&&x.lat)loc=x}catch(e){}
 const saveLoc=()=>{try{localStorage.setItem("qloc",JSON.stringify(loc))}catch(e){}};
-function cityUI(){$("city").innerHTML=C.map((c,i)=>`<option value="${i}">${c[0]}</option>`).join("")+`<option value="g">📍 موقعي الحالي</option>`;
+function cityUI(){$("city").innerHTML=C.map((c,i)=>`<option value="${i}">${tr(c[0])}</option>`).join("")+`<option value="g">📍 ${tr("موقعي الحالي")}</option>`;
 const i=C.findIndex(c=>c[0]===loc.name);$("city").value=loc.name==="موقعي"?"g":(i<0?0:i)}
 async function gps(){
 const G=NATIVE&&Capacitor.Plugins.Geolocation;
-if(G){try{const p=await G.getCurrentPosition({timeout:10000});loc={name:"موقعي",lat:p.coords.latitude,lng:p.coords.longitude,tz:-new Date().getTimezoneOffset()/60};saveLoc();cityUI();tickP();drawQ();sched()}catch(e){alert("تعذّر تحديد الموقع. فعّل إذن الموقع أو اختر مدينتك من القائمة.");cityUI()}return}
-if(!navigator.geolocation){alert("تحديد الموقع غير مدعوم، اختر مدينتك من القائمة");cityUI();return}
+if(G){try{const p=await G.getCurrentPosition({timeout:10000});loc={name:"موقعي",lat:p.coords.latitude,lng:p.coords.longitude,tz:-new Date().getTimezoneOffset()/60};saveLoc();cityUI();tickP();drawQ();sched()}catch(e){alert(tr("تعذّر تحديد الموقع. فعّل إذن الموقع أو اختر مدينتك من القائمة."));cityUI()}return}
+if(!navigator.geolocation){alert(tr("تحديد الموقع غير مدعوم، اختر مدينتك من القائمة"));cityUI();return}
 navigator.geolocation.getCurrentPosition(p=>{loc={name:"موقعي",lat:p.coords.latitude,lng:p.coords.longitude,tz:-new Date().getTimezoneOffset()/60};saveLoc();cityUI();tickP();drawQ();sched()},
-()=>{alert("تعذّر تحديد الموقع (قد يكون محجوبًا في هذه الصفحة). اختر مدينتك من القائمة.");cityUI()},{timeout:10000})}
+()=>{alert(tr("تعذّر تحديد الموقع (قد يكون محجوبًا في هذه الصفحة). اختر مدينتك من القائمة."));cityUI()},{timeout:10000})}
 $("city").onchange=()=>{const v=$("city").value;if(v==="g")return gps();const c=C[+v];loc={name:c[0],lat:c[1],lng:c[2],tz:c[3]};saveLoc();tickP();drawQ();sched()};
 $("gps").onclick=gps;$("gps2").onclick=gps;
 
 /* ===== مواقيت الصلاة (أم القرى) ===== */
-const PN=["الفجر","الشروق","الظهر","العصر","المغرب","العشاء"];
+const PN_AR=["الفجر","الشروق","الظهر","العصر","المغرب","العشاء"],PN_EN=["Fajr","Sunrise","Dhuhr","Asr","Maghrib","Isha"];
+let PN=lang==="en"?PN_EN:PN_AR;
 function calc(y,m,d){
 const jd=Date.UTC(y,m,d)/864e5+2440587.5+0.5-loc.lng/360,n=jd-2451545;
 const g=((357.529+0.98560028*n)%360+360)%360,q=((280.459+0.98564736*n)%360+360)%360;
@@ -222,20 +253,20 @@ const noon=12+loc.tz-loc.lng/15-E;
 const T=a=>Math.acos((-sin(a)-sin(D)*sin(loc.lat))/(cos(D)*cos(loc.lat)))/rad/15;
 const asr=noon+T(-Math.atan(1/(1+tan(Math.abs(loc.lat-D))))/rad),mg=noon+T(0.833);
 return[noon-T(18.5),noon-T(0.833),noon,asr,mg,mg+1.5]}
-function fh(h){let m=Math.round(h*60);m=(m%1440+1440)%1440;const H=Math.floor(m/60);return(H%12||12)+":"+String(m%60).padStart(2,"0")+" "+(H>=12?"م":"ص")}
+function fh(h){let m=Math.round(h*60);m=(m%1440+1440)%1440;const H=Math.floor(m/60);return(H%12||12)+":"+String(m%60).padStart(2,"0")+" "+tr(H>=12?"م":"ص")}
 function tickP(){
 const s=new Date(Date.now()+loc.tz*36e5),t=calc(s.getUTCFullYear(),s.getUTCMonth(),s.getUTCDate()),nh=s.getUTCHours()+s.getUTCMinutes()/60+s.getUTCSeconds()/3600;
 let n=t.findIndex(x=>x>nh),d;if(n<0){n=0;d=t[0]+24-nh}else d=t[n]-nh;
 $("pt").innerHTML=t.map((x,i)=>`<li class="${i===n?"cur":""}" style="cursor:default"><span class="nm">${PN[i]}</span><b>${fh(x)}</b></li>`).join("");
-$("nxt").textContent="القادم: "+PN[n]+" — "+loc.name;
+$("nxt").textContent=tr("القادم")+": "+PN[n]+" — "+cityName(loc.name);
 const S=Math.max(0,Math.floor(d*3600));$("cd").textContent=[S/3600|0,(S/60|0)%60,S%60].map(v=>String(v).padStart(2,"0")).join(":");
 if(adh){const i=[0,2,3,4,5].find(i=>nh-t[i]>=0&&nh-t[i]<0.03);
-if(i!==undefined){const k=s.toISOString().slice(0,10)+i;if(k!==fired){fired=k;beep();const m="حان الآن موعد صلاة "+PN[i];$("adb").textContent="🔔 "+m;$("adb").hidden=false;try{Notification.permission==="granted"&&new Notification(m)}catch(e){}}}}
-try{$("hj").textContent=s.toLocaleDateString("ar-SA-u-ca-islamic-umalqura",{weekday:"long",day:"numeric",month:"long",year:"numeric",timeZone:"UTC"})}catch(e){}}
+if(i!==undefined){const k=s.toISOString().slice(0,10)+i;if(k!==fired){fired=k;beep();const m=tr("حان الآن موعد صلاة")+" "+PN[i];$("adb").textContent="🔔 "+m;$("adb").hidden=false;try{Notification.permission==="granted"&&new Notification(m)}catch(e){}}}}
+try{$("hj").textContent=s.toLocaleDateString(lang==="en"?"en-SA-u-ca-islamic-umalqura":"ar-SA-u-ca-islamic-umalqura",{weekday:"long",day:"numeric",month:"long",year:"numeric",timeZone:"UTC"})}catch(e){}}
 let adh=false,fired="",ac=null;
 try{adh=localStorage.getItem("qadh")==="1"}catch(e){}
 function beep(){try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();const n=ac.currentTime;[0,.5,1,1.5].forEach(t=>{const o=ac.createOscillator(),g=ac.createGain();o.frequency.value=t%1?660:880;o.connect(g);g.connect(ac.destination);g.gain.setValueAtTime(.0001,n+t);g.gain.exponentialRampToValueAtTime(.3,n+t+.05);g.gain.exponentialRampToValueAtTime(.0001,n+t+.45);o.start(n+t);o.stop(n+t+.5)})}catch(e){}}
-function adtUI(){$("adt").textContent="🔔 تنبيه الأذان: "+(adh?"مفعّل":"مغلق");$("adt").classList.toggle("on",adh)}
+function adtUI(){$("adt").textContent="🔔 "+tr("تنبيه الأذان")+": "+tr(adh?"مفعّل":"مغلق");$("adt").classList.toggle("on",adh)}
 $("adt").onclick=()=>{adh=!adh;try{localStorage.setItem("qadh",adh?"1":"0")}catch(e){}
 if(adh){beep();try{window.Notification&&Notification.permission==="default"&&Notification.requestPermission()}catch(e){}}adtUI();sched()};
 $("adb").onclick=()=>$("adb").hidden=true;
@@ -246,16 +277,16 @@ function qb(){const f1=loc.lat*rad,f2=21.4225*rad,dl=(39.8262-loc.lng)*rad;
 return(Math.atan2(Math.sin(dl)*Math.cos(f2),Math.cos(f1)*Math.sin(f2)-Math.sin(f1)*Math.cos(f2)*Math.cos(dl))/rad+360)%360}
 function dist(){const f1=loc.lat*rad,f2=21.4225*rad,a=Math.sin((f2-f1)/2)**2+Math.cos(f1)*Math.cos(f2)*Math.sin((39.8262-loc.lng)*rad/2)**2;return 12742*Math.asin(Math.sqrt(a))}
 function drawQ(){const q=qb(),h=hd||0;
-$("ql").textContent="الموقع: "+loc.name;
-$("qd").textContent="القبلة "+Math.round(q)+"° من الشمال — تبعد مكة ≈ "+Math.round(dist())+" كم";
+$("ql").textContent=tr("الموقع")+": "+cityName(loc.name);
+$("qd").textContent=tr("القبلة")+" "+Math.round(q)+"° "+tr("من الشمال")+" — "+tr("تبعد مكة ≈")+" "+Math.round(dist())+" "+tr("كم");
 $("ring").style.transform=`rotate(${-h}deg)`;$("qn").style.transform=`rotate(${q-h}deg)`;
-$("qs").textContent=hd===null?"فعّل البوصلة لاستخدام حساس الجوال، أو وجّه الجهاز نحو الشمال ثم اتبع الزاوية أعلاه.":(Math.abs(((q-hd+540)%360)-180)<6?"✅ أنت باتجاه القبلة":"أدر جهازك حتى تصبح 🕋 في أعلى الدائرة")}
+$("qs").textContent=hd===null?tr("فعّل البوصلة لاستخدام حساس الجوال، أو وجّه الجهاز نحو الشمال ثم اتبع الزاوية أعلاه."):(Math.abs(((q-hd+540)%360)-180)<6?tr("✅ أنت باتجاه القبلة"):tr("أدر جهازك حتى تصبح 🕋 في أعلى الدائرة"))}
 function onO(e){let h=null;if(e.webkitCompassHeading!=null)h=e.webkitCompassHeading;else if((e.absolute||e.type==="deviceorientationabsolute")&&e.alpha!=null)h=360-e.alpha;if(h!==null){hd=h;drawQ()}}
 $("cmp").onclick=async()=>{try{
-if(typeof DeviceOrientationEvent!=="undefined"&&DeviceOrientationEvent.requestPermission){if(await DeviceOrientationEvent.requestPermission()!=="granted"){$("qs").textContent="لم يتم السماح باستخدام الحساس.";return}}
+if(typeof DeviceOrientationEvent!=="undefined"&&DeviceOrientationEvent.requestPermission){if(await DeviceOrientationEvent.requestPermission()!=="granted"){$("qs").textContent=tr("لم يتم السماح باستخدام الحساس.");return}}
 addEventListener("deviceorientationabsolute",onO,true);addEventListener("deviceorientation",onO,true);
-$("qs").textContent="جارٍ قراءة البوصلة… حرّك الجهاز قليلًا (على سطح مستوٍ).";
-}catch(e){$("qs").textContent="البوصلة غير متاحة على هذا الجهاز."}};
+$("qs").textContent=tr("جارٍ قراءة البوصلة… حرّك الجهاز قليلًا (على سطح مستوٍ).");
+}catch(e){$("qs").textContent=tr("البوصلة غير متاحة على هذا الجهاز.")}};
 
 /* ===== الأذكار ===== */
 const CK="اللَّهُ لَا إِلَهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ وَلَا يَئُودُهُ حِفْظُهُمَا وَهُوَ الْعَلِيُّ الْعَظِيمُ";
@@ -273,13 +304,13 @@ p:{t:"🕌 بعد الصلاة",d:[["أَسْتَغْفِرُ اللَّهَ",3]
 s:{t:"😴 النوم",d:[[CK,1],["قُلْ هُوَ اللَّهُ أَحَدٌ، وَقُلْ أَعُوذُ بِرَبِّ الْفَلَقِ، وَقُلْ أَعُوذُ بِرَبِّ النَّاسِ (يُنفث في الكفين ويُمسح بهما الجسد)",3],["بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا",1],["اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ",3],["سُبْحَانَ اللَّهِ",33],["الْحَمْدُ لِلَّهِ",33],["اللَّهُ أَكْبَرُ",34]]},
 w:{t:"🌅 الاستيقاظ",d:[["الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ",1],["الْحَمْدُ لِلَّهِ الَّذِي عَافَانِي فِي جَسَدِي، وَرَدَّ عَلَيَّ رُوحِي، وَأَذِنَ لِي بِذِكْرِهِ",1]]}};
 let tc=0,tg=33;
-function drawT(){$("az").innerHTML=`<div class="card"><div class="cd">${tc}${tg?" / "+tg:""}${tg&&tc===tg?" ✓":""}</div><button class="tsb" id="tb">سَبِّح</button><div class="chips" style="justify-content:center">${[33,99,100,0].map(v=>`<button class="chip tg ${v===tg?"on":""}" data-v="${v}">${v||"بلا حد"}</button>`).join("")}</div></div>`}
+function drawT(){$("az").innerHTML=`<div class="card"><div class="cd">${tc}${tg?" / "+tg:""}${tg&&tc===tg?" ✓":""}</div><button class="tsb" id="tb">${tr("سَبِّح")}</button><div class="chips" style="justify-content:center">${[33,99,100,0].map(v=>`<button class="chip tg ${v===tg?"on":""}" data-v="${v}">${v||tr("بلا حد")}</button>`).join("")}</div></div>`}
 let ak=new Date().getHours()<12?"m":"e",cnt={};
 function drawA(){
-$("ak").innerHTML=[...Object.keys(AD),"t","n","r"].map(k=>`<button class="chip ${k===ak?"on":""}" data-k="${k}">${{t:"📿 سبحة",n:"✨ الأسماء الحسنى",r:"📖 ورد القرآن"}[k]||AD[k].t}</button>`).join("");
+$("ak").innerHTML=[...Object.keys(AD),"t","n","r"].map(k=>`<button class="chip ${k===ak?"on":""}" data-k="${k}">${tr({t:"📿 سبحة",n:"✨ الأسماء الحسنى",r:"📖 ورد القرآن"}[k]||AD[k].t)}</button>`).join("");
 if(ak==="t"){drawT();return}if(ak==="n"){drawN();return}if(ak==="r"){drawR();return}
 if(!cnt[ak])cnt[ak]=AD[ak].d.map(x=>x[1]);
-$("az").innerHTML=AD[ak].d.map((x,i)=>{const r=cnt[ak][i];return`<div class="zk ${r===0?"done":""}" data-i="${i}"><p>${x[0]}</p><span class="bd">${r===0?"✓ تم":"المتبقي "+r+" من "+x[1]}</span></div>`}).join("")}
+$("az").innerHTML=AD[ak].d.map((x,i)=>{const r=cnt[ak][i];return`<div class="zk ${r===0?"done":""}" data-i="${i}"><p>${x[0]}</p><span class="bd">${r===0?tr("✓ تم"):tr("المتبقي")+" "+r+" "+tr("من")+" "+x[1]}</span></div>`}).join("")}
 $("ak").onclick=e=>{const b=e.target.closest(".chip");if(b){ak=b.dataset.k;drawA()}};
 $("az").onclick=e=>{
 const nb=e.target.closest(".nb");if(nb){ni=+nb.dataset.i;drawN();return}
@@ -296,7 +327,7 @@ $("rs").onclick=()=>{if(ak==="t")tc=0;else if(ak==="n")ni=todayN();else if(ak===
 const NM="الرحمن,الرحيم,الملك,القدوس,السلام,المؤمن,المهيمن,العزيز,الجبار,المتكبر,الخالق,البارئ,المصور,الغفار,القهار,الوهاب,الرزاق,الفتاح,العليم,القابض,الباسط,الخافض,الرافع,المعز,المذل,السميع,البصير,الحكم,العدل,اللطيف,الخبير,الحليم,العظيم,الغفور,الشكور,العلي,الكبير,الحفيظ,المقيت,الحسيب,الجليل,الكريم,الرقيب,المجيب,الواسع,الحكيم,الودود,المجيد,الباعث,الشهيد,الحق,الوكيل,القوي,المتين,الولي,الحميد,المحصي,المبدئ,المعيد,المحيي,المميت,الحي,القيوم,الواجد,الماجد,الواحد,الأحد,الصمد,القادر,المقتدر,المقدم,المؤخر,الأول,الآخر,الظاهر,الباطن,الوالي,المتعالي,البر,التواب,المنتقم,العفو,الرؤوف,مالك الملك,ذو الجلال والإكرام,المقسط,الجامع,الغني,المغني,المانع,الضار,النافع,النور,الهادي,البديع,الباقي,الوارث,الرشيد,الصبور".split(",");
 const todayN=()=>Math.floor((Date.now()-new Date().getTimezoneOffset()*6e4)/864e5)%99;
 let ni=todayN();
-function drawN(){$("az").innerHTML=`<div class="card"><div class="hj">الاسم ${ni+1} من 99${ni===todayN()?" — اسم اليوم":""}</div><div class="nmx">${NM[ni]}</div><div class="tools" style="justify-content:center"><button class="tab" id="npv" style="padding:10px 18px">السابق</button><button class="tab" id="nnx" style="padding:10px 18px">التالي</button></div></div><div class="ng">${NM.map((n,i)=>`<button class="nb ${i===ni?"on":""}" data-i="${i}">${n}</button>`).join("")}</div>`}
+function drawN(){$("az").innerHTML=`<div class="card"><div class="hj">${tr("الاسم")} ${ni+1} ${tr("من 99")}${ni===todayN()?" — "+tr("اسم اليوم"):""}</div><div class="nmx">${NM[ni]}</div><div class="tools" style="justify-content:center"><button class="tab" id="npv" style="padding:10px 18px">${tr("السابق")}</button><button class="tab" id="nnx" style="padding:10px 18px">${tr("التالي")}</button></div></div><div class="ng">${NM.map((n,i)=>`<button class="nb ${i===ni?"on":""}" data-i="${i}">${n}</button>`).join("")}</div>`}
 
 /* ===== ورد القرآن ===== */
 const JZ=[[1,1],[2,142],[2,253],[3,93],[4,24],[4,148],[5,82],[6,111],[7,88],[8,41],[9,93],[11,6],[12,53],[15,1],[17,1],[18,75],[21,1],[23,1],[25,21],[27,56],[29,46],[33,31],[36,28],[39,32],[41,47],[46,1],[51,31],[58,1],[67,1],[78,1]];
@@ -305,14 +336,14 @@ try{const x=JSON.parse(localStorage.getItem("qwird"));if(x&&x.plan)W=x}catch(e){
 const saveW=()=>{try{localStorage.setItem("qwird",JSON.stringify(W))}catch(e){}};
 const today=()=>Math.floor((Date.now()-new Date().getTimezoneOffset()*6e4)/864e5);
 function drawR(){
-if(W.start===null){$("az").innerHTML=`<div class="card"><div class="nxt">اختر مدة ختمة القرآن</div><div class="chips" style="justify-content:center;flex-wrap:wrap">${[[30,"30 يومًا (جزء يوميًا)"],[15,"15 يومًا (جزآن)"],[10,"10 أيام (3 أجزاء)"],[6,"6 أيام (5 أجزاء)"]].map(x=>`<button class="chip pl" data-p="${x[0]}">${x[1]}</button>`).join("")}</div></div>`;return}
+if(W.start===null){$("az").innerHTML=`<div class="card"><div class="nxt">${tr("اختر مدة ختمة القرآن")}</div><div class="chips" style="justify-content:center;flex-wrap:wrap">${[[30,"30 يومًا (جزء يوميًا)"],[15,"15 يومًا (جزآن)"],[10,"10 أيام (3 أجزاء)"],[6,"6 أيام (5 أجزاء)"]].map(x=>`<button class="chip pl" data-p="${x[0]}">${tr(x[1])}</button>`).join("")}</div></div>`;return}
 const d=today()-W.start,per=30/W.plan,dn=W.done.length;
-const pr=`<div class="pg"><div style="width:${dn/W.plan*100}%"></div></div><div class="note">أتممتَ ${dn} من ${W.plan} يومًا</div>`;
-if(d>=W.plan||dn>=W.plan){$("az").innerHTML=`<div class="card"><div class="nxt">${dn>=W.plan?"🎉 ما شاء الله، أتممتَ الختمة":"انتهت مدة الخطة"}</div>${pr}<p class="note">اضغط «إعادة الضبط» لبدء ختمة جديدة.</p></div>`;return}
+const pr=`<div class="pg"><div style="width:${dn/W.plan*100}%"></div></div><div class="note">${tr("أتممتَ")} ${dn} ${tr("من")} ${W.plan} ${tr("يومًا")}</div>`;
+if(d>=W.plan||dn>=W.plan){$("az").innerHTML=`<div class="card"><div class="nxt">${tr(dn>=W.plan?"🎉 ما شاء الله، أتممتَ الختمة":"انتهت مدة الخطة")}</div>${pr}<p class="note">${tr("اضغط «إعادة الضبط» لبدء ختمة جديدة.")}</p></div>`;return}
 const a=JZ[d*per],e=JZ[(d+1)*per],j1=d*per+1,j2=(d+1)*per;
-const ed=e?`حتى قبل «سورة ${S[e[0]-1]} آية ${e[1]}»`:"حتى نهاية المصحف";
+const ed=e?`${tr("حتى قبل")} «${tr("سورة")} ${S[e[0]-1]} ${tr("آية")} ${e[1]}»`:tr("حتى نهاية المصحف");
 const ok=W.done.includes(d);
-$("az").innerHTML=`<div class="card"><div class="hj">اليوم ${d+1} من ${W.plan}</div><div class="rt">${per===1?"الجزء "+j1:"من الجزء "+j1+" إلى "+j2}</div><div>يبدأ من «سورة ${S[a[0]-1]} آية ${a[1]}» ${ed}</div>${pr}<button class="bt o" id="rls" data-s="${a[0]}">🎧 استمع من بداية الورد</button><button class="bt" id="rok" ${ok?"disabled style='opacity:.6'":""}>${ok?"✓ تم ورد اليوم":"✓ أتممت ورد اليوم"}</button></div>`}
+$("az").innerHTML=`<div class="card"><div class="hj">${tr("اليوم")} ${d+1} ${tr("من")} ${W.plan}</div><div class="rt">${per===1?tr("الجزء")+" "+j1:tr("من الجزء")+" "+j1+" "+tr("إلى")+" "+j2}</div><div>${tr("يبدأ من")} «${tr("سورة")} ${S[a[0]-1]} ${tr("آية")} ${a[1]}» ${ed}</div>${pr}<button class="bt o" id="rls" data-s="${a[0]}">🎧 ${tr("استمع من بداية الورد")}</button><button class="bt" id="rok" ${ok?"disabled style='opacity:.6'":""}>${tr(ok?"✓ تم ورد اليوم":"✓ أتممت ورد اليوم")}</button></div>`}
 
 /* جدولة إشعارات الأذان الأصلية لـ 7 أيام (تعمل والتطبيق مغلق) */
 async function sched(){
@@ -326,11 +357,13 @@ const out=[],now=Date.now();
 for(let k=0;k<7;k++){
 const s=new Date(now+loc.tz*36e5+k*864e5),y=s.getUTCFullYear(),m=s.getUTCMonth(),d=s.getUTCDate(),t=calc(y,m,d);
 [0,2,3,4,5].forEach(i=>{const at=Date.UTC(y,m,d)+(t[i]-loc.tz)*36e5;
-if(at>now)out.push({id:k*10+i+1,title:"🕌 حان موعد صلاة "+PN[i],body:loc.name,schedule:{at:new Date(at),allowWhileIdle:true},...(ADHAN_SOUND?{sound:ADHAN_SOUND}:{})})})}
+if(at>now)out.push({id:k*10+i+1,title:"🕌 "+tr("حان موعد صلاة")+" "+PN[i],body:cityName(loc.name),schedule:{at:new Date(at),allowWhileIdle:true},...(ADHAN_SOUND?{sound:ADHAN_SOUND}:{})})})}
 if(out.length)await LN.schedule({notifications:out})
 }catch(e){console.log(e)}}
 cityUI();drawA();adtUI();sched();
-chips();list();
+chips();list();applyLanguage();
+$("lang").onclick=()=>{lang=lang==="ar"?"en":"ar";try{localStorage.setItem("qlang",lang)}catch(e){}
+PN=lang==="en"?PN_EN:PN_AR;applyLanguage();chips();list();cityUI();adtUI();tickP();drawA();if(!$("p-qibla").hidden)drawQ();sched()};
 </script>
 </body>
 </html>
