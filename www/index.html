@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="theme-color" content="#14213d">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>تقوى – القرآن والصلاة والأذكار</title>
+<meta name="apple-mobile-web-app-title" content="يزيد">
+<title>يزيد – القرآن والصلاة والأذكار</title>
 <style>
 @font-face{font-family:"Amiri";font-weight:400;font-display:swap;src:url(fonts/amiri-arabic-400-normal.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF,U+200C-200F}
 @font-face{font-family:"Amiri";font-weight:700;font-display:swap;src:url(fonts/amiri-arabic-700-normal.woff2) format("woff2");unicode-range:U+0600-06FF,U+0750-077F,U+FB50-FDFF,U+FE70-FEFF,U+200C-200F}
@@ -86,7 +87,7 @@ h1{display:flex;align-items:center;justify-content:center;gap:8px}h1 svg{width:4
 </style>
 </head>
 <body>
-<header><button class="lang-btn" id="lang">English</button><h1><svg viewBox="12 12 78 78" aria-hidden="true"><defs><mask id="cm"><rect x="0" y="0" width="100" height="100" fill="#fff"/><circle cx="59.8" cy="46" r="27.5" fill="#000"/></mask></defs><circle cx="50" cy="50" r="27.5" mask="url(#cm)" fill="var(--gold)"/><polygon points="67.4,28.4 65.8,33.0 60.9,33.1 64.8,36.0 63.4,40.7 67.4,37.9 71.4,40.7 70.0,36.0 73.9,33.1 69.0,33.0" fill="var(--gold)"/></svg><span data-i18n="تقوى">تقوى</span></h1><p data-i18n="اختر القارئ ثم السورة — استماع متواصل بصوت نخبة من القرّاء">اختر القارئ ثم السورة — استماع متواصل بصوت نخبة من القرّاء</p></header>
+<header><button class="lang-btn" id="lang">English</button><h1><svg viewBox="12 12 78 78" aria-hidden="true"><defs><mask id="cm"><rect x="0" y="0" width="100" height="100" fill="#fff"/><circle cx="59.8" cy="46" r="27.5" fill="#000"/></mask></defs><circle cx="50" cy="50" r="27.5" mask="url(#cm)" fill="var(--gold)"/><polygon points="67.4,28.4 65.8,33.0 60.9,33.1 64.8,36.0 63.4,40.7 67.4,37.9 71.4,40.7 70.0,36.0 73.9,33.1 69.0,33.0" fill="var(--gold)"/></svg><span data-i18n="يزيد">يزيد</span></h1><p data-i18n="اختر القارئ ثم السورة — استماع متواصل بصوت نخبة من القرّاء">اختر القارئ ثم السورة — استماع متواصل بصوت نخبة من القرّاء</p></header>
 <nav>
 <button class="nv on" data-k="quran"><i>📖</i><span data-i18n="القرآن">القرآن</span></button>
 <button class="nv" data-k="prayer"><i>🕌</i><span data-i18n="الصلاة">الصلاة</span></button>
@@ -144,7 +145,7 @@ const ADHAN_SOUND=null; /* مثال: "adhan.wav" بعد إضافة الملف ل
 let lang="ar";
 try{if(localStorage.getItem("qlang")==="en")lang="en"}catch(e){}
 const EN={
-"تقوى":"Taqwa","اختر القارئ ثم السورة — استماع متواصل بصوت نخبة من القرّاء":"Choose a reciter and surah for continuous listening from a selection of reciters",
+"يزيد":"Yazid","اختر القارئ ثم السورة — استماع متواصل بصوت نخبة من القرّاء":"Choose a reciter and surah for continuous listening from a selection of reciters",
 "القرآن":"Quran","الصلاة":"Prayer","الأذكار":"Adhkar","القبلة":"Qibla","القرّاء":"Reciters","السور":"Surahs","ابحث عن سورة…":"Search for a surah…","المفضلة":"Favorites","ش":"N",
 "موقعي":"My location","الحساب بطريقة أم القرى (الفجر 18.5°، العشاء بعد المغرب بـ 90 دقيقة) والعصر بالمذهب الجمهور. قد يختلف عن التقويم الرسمي بدقيقة أو دقيقتين.":"Calculated using Umm al-Qura (Fajr 18.5°, Isha 90 minutes after Maghrib) and the majority opinion for Asr. Times may differ from the official calendar by a minute or two.",
 "إعادة الضبط":"Reset","اضغط على الذكر لإنقاص العدّاد.":"Tap a dhikr to decrease its count.","تفعيل البوصلة":"Enable compass","تحديد موقعي":"Find my location","اختر سورة للبدء":"Choose a surah to start",
@@ -164,7 +165,8 @@ const tr=s=>lang==="en"?(EN[s]||s):s;
 const cityName=s=>s==="موقعي"?(lang==="en"?"My location":"موقعي"):(tr(s));
 function applyLanguage(){
 document.documentElement.lang=lang;document.documentElement.dir=lang==="ar"?"rtl":"ltr";
-document.title=tr("تقوى")+" – "+(lang==="en"?"Quran, Prayer & Adhkar":"القرآن والصلاة والأذكار");
+document.title=tr("يزيد")+" – "+(lang==="en"?"Quran, Prayer & Adhkar":"القرآن والصلاة والأذكار");
+document.querySelector('meta[name="apple-mobile-web-app-title"]').content=tr("يزيد");
 document.querySelectorAll("[data-i18n]").forEach(el=>{el.textContent=tr(el.dataset.i18n)});
 $("lang").textContent=lang==="ar"?"English":"العربية";$("q").placeholder=tr("ابحث عن سورة…");
 ["rep","nx","pl","pv","sp"].forEach(id=>$(id).title=tr(({rep:"تكرار",nx:"السورة التالية",pl:"تشغيل",pv:"السورة السابقة",sp:"السرعة"})[id]));
