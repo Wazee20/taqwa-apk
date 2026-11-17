@@ -1,0 +1,9 @@
+{
+  "appId": "com.yourname.taqwa",
+  "appName": "تقوى",
+  "webDir": "www",
+  "server": { "androidScheme": "https" },
+  "plugins": {
+    "LocalNotifications": { "iconColor": "#14213D" }
+  }
+}
