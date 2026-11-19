@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 300" fill="none">
+  <defs>
+    <linearGradient id="arch" x1="180" y1="26" x2="180" y2="260" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#DDE5F2"/>
+      <stop offset="1" stop-color="#C3CEE4"/>
+    </linearGradient>
+    <linearGradient id="pages" x1="102" y1="190" x2="258" y2="249" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFF8E7"/>
+      <stop offset="1" stop-color="#E9D7AC"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="180" cy="254" rx="104" ry="12" fill="#14213D" fill-opacity=".12"/>
+  <path d="M66 262V143C66 80 117 29 180 29s114 51 114 114v119H66Z" fill="url(#arch)"/>
+  <path d="M91 262V145c0-49 40-89 89-89s89 40 89 89v117H91Z" fill="#F5F3EC"/>
+  <circle cx="222" cy="102" r="25" fill="#D5AD55"/>
+  <circle cx="232" cy="94" r="24" fill="#F5F3EC"/>
+  <path d="m134 188 46 15 46-15c8-3 15 3 15 11v35c0 4-2 7-6 8l-55 18-55-18c-4-1-6-4-6-8v-35c0-8 7-14 15-11Z" fill="#1C2E5E"/>
+  <path d="m180 203-47-15v53l47 15v-53Z" fill="url(#pages)"/>
+  <path d="m180 203 48-15v53l-48 15v-53Z" fill="#EEDDAF"/>
+  <path d="m144 204 22 7m-22 5 22 7m42-10 20-7m-20 15 20-7" stroke="#A9791C" stroke-linecap="round" stroke-opacity=".7" stroke-width="2"/>
+  <path d="m113 112 5 10 11 2-8 8 2 11-10-5-10 5 2-11-8-8 11-2 5-10Zm141 25 4 8 9 2-7 6 2 9-8-4-8 4 2-9-7-6 9-2 4-8Z" fill="#D5AD55"/>
+</svg>
