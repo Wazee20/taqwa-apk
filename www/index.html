@@ -24,6 +24,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Amiri","Noto Na
 .welcome-card{width:min(100%,400px);animation:welcome-in .65s ease-out both}
 .welcome-art{display:block;width:min(72vw,280px);height:auto;margin:0 auto 12px}
 .welcome-brand{margin:0;color:var(--acc);font-size:clamp(30px,8vw,42px);line-height:1.3}
+.moon-star-mark{display:block;width:46px;height:46px;margin:6px auto 2px;flex:none}
+.welcome-card .moon-star-mark{width:54px;height:54px}
 .welcome-card .welcome-message{margin:6px 0 0;color:var(--gold);font-size:clamp(24px,6.5vw,32px);font-weight:700;line-height:1.5}
 @keyframes welcome-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 @media(prefers-reduced-motion:reduce){.welcome-card{animation:none}.welcome-splash{transition:none}}
@@ -101,10 +103,11 @@ h1{display:flex;align-items:center;justify-content:center;gap:8px}h1 svg{width:4
 <div class="welcome-card">
 <img class="welcome-art" src="welcome.svg" alt="">
 <h1 class="welcome-brand" id="welcome-brand" data-i18n="يزيد">يزيد</h1>
+<svg class="moon-star-mark" viewBox="12 12 78 78" aria-hidden="true"><defs><mask id="cm-splash"><rect x="0" y="0" width="100" height="100" fill="#fff"/><circle cx="59.8" cy="46" r="27.5" fill="#000"/></mask></defs><circle cx="50" cy="50" r="27.5" mask="url(#cm-splash)" fill="var(--gold)"/><polygon points="67.4,28.4 65.8,33.0 60.9,33.1 64.8,36.0 63.4,40.7 67.4,37.9 71.4,40.7 70.0,36.0 73.9,33.1 69.0,33.0" fill="var(--gold)"/></svg>
 <h2 class="welcome-message" id="welcome-title" data-i18n="دعواتكم لنا بالتوفيق">دعواتكم لنا بالتوفيق</h2>
 </div>
 </div>
-<header><button class="lang-btn" id="lang">English</button><h1 class="wish" data-i18n="دعواتكم لنا بالتوفيق">دعواتكم لنا بالتوفيق</h1><p data-i18n="اختر القارئ ثم السورة — استماع متواصل بصوت نخبة من القرّاء">اختر القارئ ثم السورة — استماع متواصل بصوت نخبة من القرّاء</p></header>
+<header><button class="lang-btn" id="lang">English</button><svg class="moon-star-mark" viewBox="12 12 78 78" aria-hidden="true"><defs><mask id="cm-header"><rect x="0" y="0" width="100" height="100" fill="#fff"/><circle cx="59.8" cy="46" r="27.5" fill="#000"/></mask></defs><circle cx="50" cy="50" r="27.5" mask="url(#cm-header)" fill="var(--gold)"/><polygon points="67.4,28.4 65.8,33.0 60.9,33.1 64.8,36.0 63.4,40.7 67.4,37.9 71.4,40.7 70.0,36.0 73.9,33.1 69.0,33.0" fill="var(--gold)"/></svg><h1 class="wish" data-i18n="دعواتكم لنا بالتوفيق">دعواتكم لنا بالتوفيق</h1><p data-i18n="اختر القارئ ثم السورة — استماع متواصل بصوت نخبة من القرّاء">اختر القارئ ثم السورة — استماع متواصل بصوت نخبة من القرّاء</p></header>
 <nav>
 <button class="nv on" data-k="quran"><i>📖</i><span data-i18n="القرآن">القرآن</span></button>
 <button class="nv" data-k="prayer"><i>🕌</i><span data-i18n="الصلاة">الصلاة</span></button>
