@@ -18,9 +18,19 @@
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Amiri","Noto Naskh Arabic","Segoe UI",Tahoma,sans-serif;padding-bottom:190px}
+.welcome-splash{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px;background:radial-gradient(ellipse at 50% 30%,var(--card),var(--bg) 72%);text-align:center;transition:opacity .25s ease,visibility .25s ease}
+.welcome-splash[hidden]{display:none}
+.welcome-splash.is-leaving{opacity:0;visibility:hidden;pointer-events:none}
+.welcome-card{width:min(100%,400px);animation:welcome-in .65s ease-out both}
+.welcome-art{display:block;width:min(72vw,280px);height:auto;margin:0 auto 12px}
+.welcome-card h2{margin:0;color:var(--ink);font-size:clamp(25px,7vw,34px);line-height:1.55}
+.welcome-start{margin-top:20px;border:0;border-radius:999px;padding:11px 26px;background:var(--acc);color:var(--onacc);font:inherit;font-size:16px;cursor:pointer}
+@keyframes welcome-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.welcome-card{animation:none}.welcome-splash{transition:none}}
 header{position:relative;padding:22px 16px 8px;text-align:center}
 h1{margin:0;font-size:28px;color:var(--acc)}
 header p{margin:6px 0 0;color:var(--mute);font-size:15px}
+header .wish{margin:4px 0 0;color:var(--gold);font-weight:700}
 .lang-btn{position:absolute;inset-inline-end:14px;top:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:7px 12px;font:inherit;font-size:14px;cursor:pointer}
 main{max-width:760px;margin:0 auto;padding:0 14px}
 h2{font-size:16px;margin:18px 4px 8px;color:var(--mute);font-weight:700}
@@ -87,7 +97,14 @@ h1{display:flex;align-items:center;justify-content:center;gap:8px}h1 svg{width:4
 </style>
 </head>
 <body>
-<header><button class="lang-btn" id="lang">English</button><h1><svg viewBox="12 12 78 78" aria-hidden="true"><defs><mask id="cm"><rect x="0" y="0" width="100" height="100" fill="#fff"/><circle cx="59.8" cy="46" r="27.5" fill="#000"/></mask></defs><circle cx="50" cy="50" r="27.5" mask="url(#cm)" fill="var(--gold)"/><polygon points="67.4,28.4 65.8,33.0 60.9,33.1 64.8,36.0 63.4,40.7 67.4,37.9 71.4,40.7 70.0,36.0 73.9,33.1 69.0,33.0" fill="var(--gold)"/></svg><span data-i18n="يزيد">يزيد</span></h1><p data-i18n="اختر القارئ ثم السورة — استماع متواصل بصوت نخبة من القرّاء">اختر القارئ ثم السورة — استماع متواصل بصوت نخبة من القرّاء</p></header>
+<div class="welcome-splash" id="welcome" role="dialog" aria-modal="true" aria-labelledby="welcome-title">
+<div class="welcome-card">
+<img class="welcome-art" src="welcome.svg" alt="">
+<h2 id="welcome-title" data-i18n="دعواتكم لنا بالتوفيق">دعواتكم لنا بالتوفيق</h2>
+<button class="welcome-start" id="welcome-start" data-i18n="ابدأ">ابدأ</button>
+</div>
+</div>
+<header><button class="lang-btn" id="lang">English</button><h1><svg viewBox="12 12 78 78" aria-hidden="true"><defs><mask id="cm"><rect x="0" y="0" width="100" height="100" fill="#fff"/><circle cx="59.8" cy="46" r="27.5" fill="#000"/></mask></defs><circle cx="50" cy="50" r="27.5" mask="url(#cm)" fill="var(--gold)"/><polygon points="67.4,28.4 65.8,33.0 60.9,33.1 64.8,36.0 63.4,40.7 67.4,37.9 71.4,40.7 70.0,36.0 73.9,33.1 69.0,33.0" fill="var(--gold)"/></svg><span data-i18n="يزيد">يزيد</span></h1><p class="wish" data-i18n="دعواتكم لنا بالتوفيق">دعواتكم لنا بالتوفيق</p><p data-i18n="اختر القارئ ثم السورة — استماع متواصل بصوت نخبة من القرّاء">اختر القارئ ثم السورة — استماع متواصل بصوت نخبة من القرّاء</p></header>
 <nav>
 <button class="nv on" data-k="quran"><i>📖</i><span data-i18n="القرآن">القرآن</span></button>
 <button class="nv" data-k="prayer"><i>🕌</i><span data-i18n="الصلاة">الصلاة</span></button>
@@ -145,6 +162,7 @@ const ADHAN_SOUND=null; /* مثال: "adhan.wav" بعد إضافة الملف ل
 let lang="ar";
 try{if(localStorage.getItem("qlang")==="en")lang="en"}catch(e){}
 const EN={
+"دعواتكم لنا بالتوفيق":"Please wish us success","ابدأ":"Continue",
 "يزيد":"Yazid","اختر القارئ ثم السورة — استماع متواصل بصوت نخبة من القرّاء":"Choose a reciter and surah for continuous listening from a selection of reciters",
 "القرآن":"Quran","الصلاة":"Prayer","الأذكار":"Adhkar","القبلة":"Qibla","القرّاء":"Reciters","السور":"Surahs","ابحث عن سورة…":"Search for a surah…","المفضلة":"Favorites","ش":"N",
 "موقعي":"My location","الحساب بطريقة أم القرى (الفجر 18.5°، العشاء بعد المغرب بـ 90 دقيقة) والعصر بالمذهب الجمهور. قد يختلف عن التقويم الرسمي بدقيقة أو دقيقتين.":"Calculated using Umm al-Qura (Fajr 18.5°, Isha 90 minutes after Maghrib) and the majority opinion for Asr. Times may differ from the official calendar by a minute or two.",
@@ -364,6 +382,9 @@ if(out.length)await LN.schedule({notifications:out})
 }catch(e){console.log(e)}}
 cityUI();drawA();adtUI();sched();
 chips();list();applyLanguage();
+$("welcome-start").onclick=()=>closeWelcome();
+function closeWelcome(){const splash=$("welcome");if(splash.hidden||splash.classList.contains("is-leaving"))return;splash.classList.add("is-leaving");setTimeout(()=>{splash.hidden=true},260)}
+setTimeout(closeWelcome,2800);
 $("lang").onclick=()=>{lang=lang==="ar"?"en":"ar";try{localStorage.setItem("qlang",lang)}catch(e){}
 PN=lang==="en"?PN_EN:PN_AR;applyLanguage();chips();list();cityUI();adtUI();tickP();drawA();if(!$("p-qibla").hidden)drawQ();sched()};
 </script>
