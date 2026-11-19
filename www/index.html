@@ -27,11 +27,12 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:"Amiri","Noto Na
 .moon-star-mark{display:block;width:46px;height:46px;margin:6px auto 2px;flex:none}
 .welcome-card .moon-star-mark{width:54px;height:54px}
 .welcome-card .welcome-message{margin:6px 0 0;color:var(--gold);font-size:clamp(24px,6.5vw,32px);font-weight:700;line-height:1.5}
-.quran-quote{position:fixed;inset:50% auto auto 50%;z-index:30;width:min(calc(100vw - 32px),700px);padding:18px 22px;border:1px solid var(--line);border-radius:18px;background:var(--card);color:var(--ink);box-shadow:0 14px 40px rgba(0,0,0,.24);text-align:center;font-size:clamp(19px,5vw,26px);font-weight:700;line-height:1.9;opacity:0;transform:translate(-50%,-46%);transition:opacity .2s ease,transform .2s ease;pointer-events:none}
-.quran-quote.visible{opacity:1;transform:translate(-50%,-50%)}
-.quran-quote[hidden]{display:none}
+.tab-quote{position:fixed;inset:50% auto auto 50%;z-index:30;width:min(calc(100vw - 32px),700px);padding:18px 22px;border:1px solid var(--line);border-radius:18px;background:var(--card);color:var(--ink);box-shadow:0 14px 40px rgba(0,0,0,.24);text-align:center;font-size:clamp(19px,5vw,26px);font-weight:700;line-height:1.9;opacity:0;transform:translate(-50%,-46%);transition:opacity .2s ease,transform .2s ease;pointer-events:none}
+.tab-quote .moon-star-mark{width:42px;height:42px;margin:0 auto 8px}
+.tab-quote.visible{opacity:1;transform:translate(-50%,-50%)}
+.tab-quote[hidden]{display:none}
 @keyframes welcome-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-@media(prefers-reduced-motion:reduce){.welcome-card{animation:none}.welcome-splash,.quran-quote{transition:none}}
+@media(prefers-reduced-motion:reduce){.welcome-card{animation:none}.welcome-splash,.tab-quote{transition:none}}
 header{position:relative;padding:22px 16px 8px;text-align:center}
 h1{margin:0;font-size:28px;color:var(--acc)}
 header p{margin:6px 0 0;color:var(--mute);font-size:15px}
@@ -110,7 +111,7 @@ h1{display:flex;align-items:center;justify-content:center;gap:8px}h1 svg{width:4
 <h2 class="welcome-message" id="welcome-title" data-i18n="دعواتكم لنا بالتوفيق">دعواتكم لنا بالتوفيق</h2>
 </div>
 </div>
-<div class="quran-quote" id="quran-quote" role="status" aria-live="polite" data-i18n="اجعل لك من القرآن وردًا، ففيه راحة للقلب، وطمأنينة للروح، ونور للحياة." hidden>اجعل لك من القرآن وردًا، ففيه راحة للقلب، وطمأنينة للروح، ونور للحياة.</div>
+<div class="tab-quote" id="tab-quote" role="status" aria-live="polite" hidden><svg class="moon-star-mark" viewBox="12 12 78 78" aria-hidden="true"><defs><mask id="cm-quote"><rect x="0" y="0" width="100" height="100" fill="#fff"/><circle cx="59.8" cy="46" r="27.5" fill="#000"/></mask></defs><circle cx="50" cy="50" r="27.5" mask="url(#cm-quote)" fill="var(--gold)"/><polygon points="67.4,28.4 65.8,33.0 60.9,33.1 64.8,36.0 63.4,40.7 67.4,37.9 71.4,40.7 70.0,36.0 73.9,33.1 69.0,33.0" fill="var(--gold)"/></svg><span id="tab-quote-text" data-i18n="اجعل لك من القرآن وردًا، ففيه راحة للقلب، وطمأنينة للروح، ونور للحياة.">اجعل لك من القرآن وردًا، ففيه راحة للقلب، وطمأنينة للروح، ونور للحياة.</span></div>
 <header><button class="lang-btn" id="lang">English</button><svg class="moon-star-mark" viewBox="12 12 78 78" aria-hidden="true"><defs><mask id="cm-header"><rect x="0" y="0" width="100" height="100" fill="#fff"/><circle cx="59.8" cy="46" r="27.5" fill="#000"/></mask></defs><circle cx="50" cy="50" r="27.5" mask="url(#cm-header)" fill="var(--gold)"/><polygon points="67.4,28.4 65.8,33.0 60.9,33.1 64.8,36.0 63.4,40.7 67.4,37.9 71.4,40.7 70.0,36.0 73.9,33.1 69.0,33.0" fill="var(--gold)"/></svg><h1 class="wish" data-i18n="دعواتكم لنا بالتوفيق">دعواتكم لنا بالتوفيق</h1><p data-i18n="اختر القارئ ثم السورة — استماع متواصل بصوت نخبة من القرّاء">اختر القارئ ثم السورة — استماع متواصل بصوت نخبة من القرّاء</p></header>
 <nav>
 <button class="nv on" data-k="quran"><i>📖</i><span data-i18n="القرآن">القرآن</span></button>
@@ -169,6 +170,9 @@ const ADHAN_SOUND=null; /* مثال: "adhan.wav" بعد إضافة الملف ل
 let lang="ar";
 try{if(localStorage.getItem("qlang")==="en")lang="en"}catch(e){}
 const EN={
+"استقبل القبلة بقلبك قبل جسدك، واجعل وجهتك دائمًا إلى الله.":"Face the Qibla with your heart before your body, and always make Allah your destination.",
+"اجعل لسانك رطبًا بذكر الله، فبالأذكار تطمئن القلوب، وتحفظ النفوس، وتطيب الحياة. 🤍":"Keep your tongue moist with the remembrance of Allah; through dhikr, hearts find tranquility, souls are protected, and life becomes wholesome. 🤍",
+"حافظ على صلاتك، فهي صلتك بالله، وراحة قلبك، ونور دربك":"Guard your prayer; it is your connection to Allah, comfort for your heart, and light for your path.",
 "اجعل لك من القرآن وردًا، ففيه راحة للقلب، وطمأنينة للروح، ونور للحياة.":"Make the Quran a daily part of your life; it brings comfort to the heart, tranquility to the soul, and light to life.",
 "دعواتكم لنا بالتوفيق":"Please wish us success",
 "يزيد":"Yazid","اختر القارئ ثم السورة — استماع متواصل بصوت نخبة من القرّاء":"Choose a reciter and surah for continuous listening from a selection of reciters",
@@ -245,12 +249,15 @@ au.onerror=()=>{if(si>=0)$("msg").innerHTML=`${tr("تعذّر تحميل الص�
 $("seek").oninput=()=>{if(au.duration)au.currentTime=$("seek").value/100*au.duration};
 
 /* ===== التبويبات ===== */
-let quranQuoteTimer=0,quranQuoteFadeTimer=0;
-function showQuranQuote(){const quote=$("quran-quote");clearTimeout(quranQuoteTimer);clearTimeout(quranQuoteFadeTimer);quote.hidden=false;quote.classList.remove("visible");requestAnimationFrame(()=>quote.classList.add("visible"));quranQuoteTimer=setTimeout(()=>{quote.classList.remove("visible");quranQuoteFadeTimer=setTimeout(()=>{quote.hidden=true},220)},3000)}
+let tabQuoteTimer=0,tabQuoteFadeTimer=0;
+function showTabQuote(message){const quote=$("tab-quote"),quoteText=$("tab-quote-text");quoteText.dataset.i18n=message;quoteText.textContent=tr(message);clearTimeout(tabQuoteTimer);clearTimeout(tabQuoteFadeTimer);quote.hidden=false;quote.classList.remove("visible");requestAnimationFrame(()=>quote.classList.add("visible"));tabQuoteTimer=setTimeout(()=>{quote.classList.remove("visible");tabQuoteFadeTimer=setTimeout(()=>{quote.hidden=true},220)},3000)}
 function show(k){["quran","prayer","adhkar","qibla"].forEach(x=>$("p-"+x).hidden=x!==k);
 document.querySelectorAll(".nv").forEach(b=>b.classList.toggle("on",b.dataset.k===k));
 $("bar").style.display=k==="quran"?"":"none";
-if(k==="quran")showQuranQuote();
+if(k==="quran")showTabQuote("اجعل لك من القرآن وردًا، ففيه راحة للقلب، وطمأنينة للروح، ونور للحياة.");
+if(k==="prayer")showTabQuote("حافظ على صلاتك، فهي صلتك بالله، وراحة قلبك، ونور دربك");
+if(k==="qibla")showTabQuote("استقبل القبلة بقلبك قبل جسدك، واجعل وجهتك دائمًا إلى الله.");
+if(k==="adhkar")showTabQuote("اجعل لسانك رطبًا بذكر الله، فبالأذكار تطمئن القلوب، وتحفظ النفوس، وتطيب الحياة. 🤍");
 if(k==="prayer")tickP();if(k==="qibla")drawQ();scrollTo(0,0)}
 document.querySelector("nav").onclick=e=>{const b=e.target.closest(".nv");if(b)show(b.dataset.k)};
 
