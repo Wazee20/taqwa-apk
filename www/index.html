@@ -83,6 +83,10 @@ select.tab{flex:1;font-size:16px;padding:10px}
 .note{color:var(--mute);font-size:13px;text-align:center;margin:8px 4px}
 .zk{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin:10px 0;cursor:pointer;user-select:none}
 .zk p{margin:0 0 10px;font-size:22px;line-height:2}
+.ayah-list{display:grid;gap:10px;margin-bottom:10px}
+.ayah-card{border:1px solid var(--line);border-radius:12px;background:var(--bg);padding:10px 12px;text-align:center}
+.ayah-card p{margin:6px 0 0}
+.ayah-label{color:var(--gold);font-size:13px;font-weight:700;line-height:1.6}
 .zk .bd{display:inline-block;background:var(--acc2);color:var(--acc);border-radius:999px;padding:4px 14px;font-weight:700}
 .zk.done{opacity:.5}.zk.done .bd{background:var(--acc);color:var(--onacc)}
 #dial{position:relative;width:280px;max-width:80vw;aspect-ratio:1;margin:12px auto;border-radius:50%;border:2px solid var(--line);background:var(--bg)}
@@ -413,11 +417,16 @@ w:{t:"🌅 الاستيقاظ",d:[["الْحَمْدُ لِلَّهِ الَّذ
 let tc=0,tg=33;
 function drawT(){$("az").innerHTML=`<div class="card"><div class="cd">${tc}${tg?" / "+tg:""}${tg&&tc===tg?" ✓":""}</div><button class="tsb" id="tb">${tr("سَبِّح")}</button><div class="chips" style="justify-content:center">${[33,99,100,0].map(v=>`<button class="chip tg ${v===tg?"on":""}" data-v="${v}">${v||tr("بلا حد")}</button>`).join("")}</div></div>`}
 let ak=new Date().getHours()<12?"m":"e",cnt={};
+function adhkarAyahCards(surah,firstAyah,text,separator){
+ const ayahs=text.split(separator);
+ return `<div class="ayah-list">${ayahs.map((ayah,i)=>`<div class="ayah-card"><div class="ayah-label">${surah} ? الآية ${firstAyah+i}</div><p>${ayah.trim()}</p></div>`).join("")}</div>`;
+}
+
 function drawA(){
 $("ak").innerHTML=[...Object.keys(AD),"t","n","r"].map(k=>`<button class="chip ${k===ak?"on":""}" data-k="${k}">${tr({t:"📿 سبحة",n:"✨ الأسماء الحسنى",r:"📖 ورد القرآن"}[k]||AD[k].t)}</button>`).join("");
 if(ak==="t"){drawT();return}if(ak==="n"){drawN();return}if(ak==="r"){drawR();return}
 if(!cnt[ak])cnt[ak]=AD[ak].d.map(x=>x[1]);
-$("az").innerHTML=AD[ak].d.map((x,i)=>{const r=cnt[ak][i];return`<div class="zk ${r===0?"done":""}" data-i="${i}"><p>${x[0]}</p><span class="bd">${r===0?tr("✓ تم"):tr("المتبقي")+" "+r+" "+tr("من")+" "+x[1]}</span></div>`}).join("")}
+$("az").innerHTML=AD[ak].d.map((x,i)=>{const r=cnt[ak][i];let body=`<p>${x[0]}</p>`;if((ak==="m"||ak==="e")&&i===0)body=adhkarAyahCards("سورة البقرة",255,x[0],/(?=\u06DA|\u06D7|\u06D6)/g);if((ak==="m"||ak==="e")&&i===1)body=adhkarAyahCards("سورة الإخلاص",112,x[0],/(?=\u06DD)/g);if((ak==="m"||ak==="e")&&i===2)body=adhkarAyahCards("سورة الفلق",113,x[0],/(?=\u06DD)/g);if((ak==="m"||ak==="e")&&i===3)body=adhkarAyahCards("سورة الناس",114,x[0],/(?=\u06DD)/g);return`<div class="zk ${r===0?"done":""}" data-i="${i}">${body}<span class="bd">${r===0?tr("✓ تم "):tr("المتبقي")+" "+r+" "+tr("من")+" "+x[1]}</span></div>`}).join("")}
 $("ak").onclick=e=>{const b=e.target.closest(".chip");if(b){ak=b.dataset.k;drawA()}};
 $("az").onclick=e=>{
 const nb=e.target.closest(".nb");if(nb){ni=+nb.dataset.i;drawN();return}
