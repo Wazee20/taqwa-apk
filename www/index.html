@@ -18,6 +18,7 @@
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:"Amiri","Noto Naskh Arabic","Segoe UI",Tahoma,sans-serif;padding-bottom:190px}
+button:focus,input:focus,select:focus{outline:3px solid var(--gold);outline-offset:3px}
 .welcome-splash{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px;background:radial-gradient(ellipse at 50% 30%,var(--card),var(--bg) 72%);text-align:center;transition:opacity .25s ease,visibility .25s ease}
 .welcome-splash[hidden]{display:none}
 .welcome-splash.is-leaving{opacity:0;visibility:hidden;pointer-events:none}
@@ -83,11 +84,11 @@ select.tab{flex:1;font-size:16px;padding:10px}
 .note{color:var(--mute);font-size:13px;text-align:center;margin:8px 4px}
 .zk{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin:10px 0;cursor:pointer;user-select:none}
 .zk p{margin:0 0 10px;font-size:22px;line-height:2}
+.zk .bd{display:inline-block;background:var(--acc2);color:var(--acc);border-radius:999px;padding:4px 14px;font-weight:700}
 .ayah-list{display:grid;gap:10px;margin-bottom:10px}
 .ayah-card{border:1px solid var(--line);border-radius:12px;background:var(--bg);padding:10px 12px;text-align:center}
 .ayah-card p{margin:6px 0 0}
 .ayah-label{color:var(--gold);font-size:13px;font-weight:700;line-height:1.6}
-.zk .bd{display:inline-block;background:var(--acc2);color:var(--acc);border-radius:999px;padding:4px 14px;font-weight:700}
 .zk.done{opacity:.5}.zk.done .bd{background:var(--acc);color:var(--onacc)}
 #dial{position:relative;width:280px;max-width:80vw;aspect-ratio:1;margin:12px auto;border-radius:50%;border:2px solid var(--line);background:var(--bg)}
 #ring,#qn{position:absolute;inset:0;transition:transform .2s}
@@ -107,6 +108,17 @@ select.tab{flex:1;font-size:16px;padding:10px}
 .bt{border:0;background:var(--acc);color:var(--onacc);border-radius:12px;padding:12px 18px;font:inherit;font-size:17px;cursor:pointer;margin:4px}
 .bt.o{background:var(--acc2);color:var(--acc)}
 h1{display:flex;align-items:center;justify-content:center;gap:8px}h1 svg{width:42px;height:42px}
+@media (min-width:1200px){
+main,nav,.in{max-width:1120px}
+main{padding:0 24px}
+header{padding-top:32px}
+h1{font-size:36px}
+header p{font-size:20px}
+h2{font-size:22px}
+.nv{font-size:19px;padding:12px 8px}
+.nv .tab-art{width:58px;height:68px}
+.chip{font-size:19px;padding:12px 20px}
+}
 </style>
 </head>
 <body>
@@ -166,8 +178,8 @@ h1{display:flex;align-items:center;justify-content:center;gap:8px}h1 svg{width:4
 <button class="play" id="pl" title="تشغيل">▶</button>
 <button id="pv" title="السورة التالية">⏭</button>
 <select id="sp" title="السرعة"><option value="0.8">0.8×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select>
- <div class="auto-next"><button id="anxt" title="هل ترغب بالانتقال بين السور بعد انتهاء السورة؟" aria-pressed="false">↪</button> <span id="anxt-label" data-i18n="هل ترغب بالانتقال بين السور بعد انتهاء السورة؟">هل ترغب بالانتقال بين السور بعد انتهاء السورة؟</span></div>
 </div>
+<div class="auto-next"><button id="anxt" title="هل ترغب بالانتقال بين السور بعد انتهاء السورة؟" aria-pressed="false">↪</button> <span id="anxt-label" data-i18n="هل ترغب بالانتقال بين السور بعد انتهاء السورة؟">هل ترغب بالانتقال بين السور بعد انتهاء السورة؟</span></div>
 <div id="msg"></div>
 </div></div>
 <audio id="au" preload="none"></audio>
@@ -181,9 +193,7 @@ const EN={
 "استقبل القبلة بقلبك قبل جسدك، واجعل وجهتك دائمًا إلى الله.":"Face the Qibla with your heart before your body, and always make Allah your destination.",
 "اجعل لسانك رطبًا بذكر الله، فبالأذكار تطمئن القلوب، وتحفظ النفوس، وتطيب الحياة. 🤍":"Keep your tongue moist with the remembrance of Allah; through dhikr, hearts find tranquility, souls are protected, and life becomes wholesome. 🤍",
 "حافظ على صلاتك، فهي صلتك بالله، وراحة قلبك، ونور دربك":"Guard your prayer; it is your connection to Allah, comfort for your heart, and light for your path.",
-"اجعل لك من القرآن وردًا، ففيه راحة للقلب، وطمأنينة للروح، ونور للحياة.":"Make the Quran a daily part of your life; it brings comfort to the heart, tranquility to the soul, and light to life.",
-"دعواتكم لنا بالتوفيق":"Please wish us success",
-"يزيد":"Yazid","اختر القارئ ثم السورة — استماع متواصل بصوت نخبة من القرّاء":"Choose a reciter and surah for continuous listening from a selection of reciters",
+"يزيد":"Yazid","دعواتكم لنا بالتوفيق":"Please wish us success","اجعل لك من القرآن وردًا، ففيه راحة للقلب، وطمأنينة للروح، ونور للحياة.":"Make the Quran a daily part of your life; it brings comfort to the heart, tranquility to the soul, and light to life.","اختر القارئ ثم السورة — استماع متواصل بصوت نخبة من القرّاء":"Choose a reciter and surah for continuous listening from a selection of reciters",
 "القرآن":"Quran","الصلاة":"Prayer","الأذكار":"Adhkar","القبلة":"Qibla","القرّاء":"Reciters","السور":"Surahs","ابحث عن سورة…":"Search for a surah…","المفضلة":"Favorites","ش":"N",
 "موقعي":"My location","الحساب بطريقة أم القرى (الفجر 18.5°، العشاء بعد المغرب بـ 90 دقيقة) والعصر بالمذهب الجمهور. قد يختلف عن التقويم الرسمي بدقيقة أو دقيقتين.":"Calculated using Umm al-Qura (Fajr 18.5°, Isha 90 minutes after Maghrib) and the majority opinion for Asr. Times may differ from the official calendar by a minute or two.",
 "إعادة الضبط":"Reset","اضغط على الذكر لإنقاص العدّاد.":"Tap a dhikr to decrease its count.","تفعيل البوصلة":"Enable compass","تحديد موقعي":"Find my location","اختر سورة للبدء":"Choose a surah to start",
@@ -208,7 +218,7 @@ document.querySelector('meta[name="apple-mobile-web-app-title"]').content=tr("ي
 document.querySelectorAll("[data-i18n]").forEach(el=>{el.textContent=tr(el.dataset.i18n)});
 $("lang").textContent=lang==="ar"?"English":"العربية";$("q").placeholder=tr("ابحث عن سورة…");
 ["rep","nx","pl","pv","sp"].forEach(id=>$(id).title=tr(({rep:"تكرار",nx:"السورة التالية",pl:"تشغيل",pv:"السورة السابقة",sp:"السرعة"})[id]));
- $("anxt").title=tr("هل ترغب بالانتقال بين السور بعد انتهاء السورة؟");$("anxt").setAttribute("aria-label",$("anxt").title);
+$("anxt").title=tr("هل ترغب بالانتقال بين السور بعد انتهاء السورة؟");$("anxt").setAttribute("aria-label",$("anxt").title);
 if(si>=0)$("tt").textContent=tr("سورة")+" "+S[si];$("favTab").firstChild.textContent="★ ";
 }
 const S="الفاتحة,البقرة,آل عمران,النساء,المائدة,الأنعام,الأعراف,الأنفال,التوبة,يونس,هود,يوسف,الرعد,إبراهيم,الحجر,النحل,الإسراء,الكهف,مريم,طه,الأنبياء,الحج,المؤمنون,النور,الفرقان,الشعراء,النمل,القصص,العنكبوت,الروم,لقمان,السجدة,الأحزاب,سبأ,فاطر,يس,الصافات,ص,الزمر,غافر,فصلت,الشورى,الزخرف,الدخان,الجاثية,الأحقاف,محمد,الفتح,الحجرات,ق,الذاريات,الطور,النجم,القمر,الرحمن,الواقعة,الحديد,المجادلة,الحشر,الممتحنة,الصف,الجمعة,المنافقون,التغابن,الطلاق,التحريم,الملك,القلم,الحاقة,المعارج,نوح,الجن,المزمل,المدثر,القيامة,الإنسان,المرسلات,النبأ,النازعات,عبس,التكوير,الانفطار,المطففين,الانشقاق,البروج,الطارق,الأعلى,الغاشية,الفجر,البلد,الشمس,الليل,الضحى,الشرح,التين,العلق,القدر,البينة,الزلزلة,العاديات,القارعة,التكاثر,العصر,الهمزة,الفيل,قريش,الماعون,الكوثر,الكافرون,النصر,المسد,الإخلاص,الفلق,الناس".split(",");
@@ -274,8 +284,8 @@ document.querySelectorAll(".nv").forEach(b=>b.classList.toggle("on",b.dataset.k=
 $("bar").style.display=k==="quran"?"":"none";
 if(k==="quran")showTabQuote("اجعل لك من القرآن وردًا، ففيه راحة للقلب، وطمأنينة للروح، ونور للحياة.");
 if(k==="prayer")showTabQuote("حافظ على صلاتك، فهي صلتك بالله، وراحة قلبك، ونور دربك");
-if(k==="qibla")showTabQuote("استقبل القبلة بقلبك قبل جسدك، واجعل وجهتك دائمًا إلى الله.");
 if(k==="adhkar")showTabQuote("اجعل لسانك رطبًا بذكر الله، فبالأذكار تطمئن القلوب، وتحفظ النفوس، وتطيب الحياة. 🤍");
+if(k==="qibla")showTabQuote("استقبل القبلة بقلبك قبل جسدك، واجعل وجهتك دائمًا إلى الله.");
 if(k==="prayer")tickP();if(k==="qibla")drawQ();scrollTo(0,0)}
 document.querySelector("nav").onclick=e=>{const b=e.target.closest(".nv");if(b)show(b.dataset.k)};
 
@@ -409,8 +419,8 @@ const EVENING=[
 ["اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبَيِّنَا مُحَمَّدٍ",10]
 ];
 const AD={
-m:{t:"☀️ ??????",d:MORNING},
-e:{t:"🌙 ??????",d:EVENING},
+m:{t:"☀️ الصباح",d:MORNING},
+e:{t:"🌙 المساء",d:EVENING},
 p:{t:"🕌 بعد الصلاة",d:[["أَسْتَغْفِرُ اللَّهَ",3],["اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ، تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالْإِكْرَامِ",1],["سُبْحَانَ اللَّهِ",33],["الْحَمْدُ لِلَّهِ",33],["اللَّهُ أَكْبَرُ",33],[TH,1],[CK,1]]},
 s:{t:"😴 النوم",d:[[CK,1],["قُلْ هُوَ اللَّهُ أَحَدٌ، وَقُلْ أَعُوذُ بِرَبِّ الْفَلَقِ، وَقُلْ أَعُوذُ بِرَبِّ النَّاسِ (يُنفث في الكفين ويُمسح بهما الجسد)",3],["بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا",1],["اللَّهُمَّ قِنِي عَذَابَكَ يَوْمَ تَبْعَثُ عِبَادَكَ",3],["سُبْحَانَ اللَّهِ",33],["الْحَمْدُ لِلَّهِ",33],["اللَّهُ أَكْبَرُ",34]]},
 w:{t:"🌅 الاستيقاظ",d:[["الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ",1],["الْحَمْدُ لِلَّهِ الَّذِي عَافَانِي فِي جَسَدِي، وَرَدَّ عَلَيَّ رُوحِي، وَأَذِنَ لِي بِذِكْرِهِ",1]]}};
@@ -418,15 +428,22 @@ let tc=0,tg=33;
 function drawT(){$("az").innerHTML=`<div class="card"><div class="cd">${tc}${tg?" / "+tg:""}${tg&&tc===tg?" ✓":""}</div><button class="tsb" id="tb">${tr("سَبِّح")}</button><div class="chips" style="justify-content:center">${[33,99,100,0].map(v=>`<button class="chip tg ${v===tg?"on":""}" data-v="${v}">${v||tr("بلا حد")}</button>`).join("")}</div></div>`}
 let ak=new Date().getHours()<12?"m":"e",cnt={};
 function adhkarAyahCards(surah,firstAyah,text,separator){
- const ayahs=text.split(separator);
- return `<div class="ayah-list">${ayahs.map((ayah,i)=>`<div class="ayah-card"><div class="ayah-label">${surah} ? الآية ${firstAyah+i}</div><p>${ayah.trim()}</p></div>`).join("")}</div>`;
+const ayahs=text.split(separator);
+return `<div class="ayah-list">${ayahs.map((ayah,i)=>{const n=firstAyah===255?255:i+1;const ar=String(n).replace(/[0-9]/g,d=>"٠١٢٣٤٥٦٧٨٩"[d]);return`<div class="ayah-card"><div class="ayah-label">${surah} — الآية ${ar}</div><p>${ayah.trim()}</p></div>`}).join("")}</div>`;
 }
-
 function drawA(){
 $("ak").innerHTML=[...Object.keys(AD),"t","n","r"].map(k=>`<button class="chip ${k===ak?"on":""}" data-k="${k}">${tr({t:"📿 سبحة",n:"✨ الأسماء الحسنى",r:"📖 ورد القرآن"}[k]||AD[k].t)}</button>`).join("");
 if(ak==="t"){drawT();return}if(ak==="n"){drawN();return}if(ak==="r"){drawR();return}
 if(!cnt[ak])cnt[ak]=AD[ak].d.map(x=>x[1]);
-$("az").innerHTML=AD[ak].d.map((x,i)=>{const r=cnt[ak][i];let body=`<p>${x[0]}</p>`;if((ak==="m"||ak==="e")&&i===0)body=adhkarAyahCards("سورة البقرة",255,x[0],/(?=\u06DA|\u06D7|\u06D6)/g);if((ak==="m"||ak==="e")&&i===1)body=adhkarAyahCards("سورة الإخلاص",112,x[0],/(?=\u06DD)/g);if((ak==="m"||ak==="e")&&i===2)body=adhkarAyahCards("سورة الفلق",113,x[0],/(?=\u06DD)/g);if((ak==="m"||ak==="e")&&i===3)body=adhkarAyahCards("سورة الناس",114,x[0],/(?=\u06DD)/g);return`<div class="zk ${r===0?"done":""}" data-i="${i}">${body}<span class="bd">${r===0?tr("✓ تم "):tr("المتبقي")+" "+r+" "+tr("من")+" "+x[1]}</span></div>`}).join("")}
+$("az").innerHTML=AD[ak].d.map((x,i)=>{
+ const r=cnt[ak][i];
+ let body=`<p>${x[0]}</p>`;
+ if((ak==="m"||ak==="e")&&i===0)body=adhkarAyahCards("سورة البقرة",255,x[0],/(?=ۚ|ۗ|ۖ)/g);
+ if((ak==="m"||ak==="e")&&i===1)body=adhkarAyahCards("سورة الإخلاص",112,x[0],/(?=۝)/g);
+ if((ak==="m"||ak==="e")&&i===2)body=adhkarAyahCards("سورة الفلق",113,x[0],/(?=۝)/g);
+ if((ak==="m"||ak==="e")&&i===3)body=adhkarAyahCards("سورة الناس",114,x[0],/(?=۝)/g);
+ return`<div class="zk ${r===0?"done":""}" data-i="${i}">${body}<span class="bd">${r===0?tr("✓ تم"):tr("المتبقي")+" "+r+" "+tr("من")+" "+x[1]}</span></div>`
+}).join("")}
 $("ak").onclick=e=>{const b=e.target.closest(".chip");if(b){ak=b.dataset.k;drawA()}};
 $("az").onclick=e=>{
 const nb=e.target.closest(".nb");if(nb){ni=+nb.dataset.i;drawN();return}
