@@ -65,6 +65,9 @@ input[type=range]{width:100%;accent-color:var(--acc);direction:ltr}
 .ctl button,.ctl select{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:50%;width:44px;height:44px;font-size:18px;cursor:pointer}
 .ctl .play{width:56px;height:56px;background:var(--acc);color:var(--onacc);border-color:var(--acc);font-size:22px}
 .ctl button.on{background:var(--acc2);color:var(--acc);border-color:var(--acc)}
+.auto-next{margin:6px auto 0;text-align:center;color:var(--mute);font-size:13px}
+.auto-next button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:5px 10px;font:inherit;font-size:13px;cursor:pointer}
+.auto-next button.on{background:var(--acc);color:var(--onacc);border-color:var(--acc)}
 .ctl select{border-radius:12px;width:auto;padding:0 6px;font:inherit;font-size:14px}
 #msg{color:#b3402a;font-size:13px;text-align:center;min-height:16px}
 #msg a{color:var(--acc)}
@@ -159,6 +162,7 @@ h1{display:flex;align-items:center;justify-content:center;gap:8px}h1 svg{width:4
 <button class="play" id="pl" title="تشغيل">▶</button>
 <button id="pv" title="السورة التالية">⏭</button>
 <select id="sp" title="السرعة"><option value="0.8">0.8×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select>
+ <div class="auto-next"><button id="anxt" title="هل ترغب بالانتقال بين السور بعد انتهاء السورة؟" aria-pressed="false">↪</button> <span id="anxt-label" data-i18n="هل ترغب بالانتقال بين السور بعد انتهاء السورة؟">هل ترغب بالانتقال بين السور بعد انتهاء السورة؟</span></div>
 </div>
 <div id="msg"></div>
 </div></div>
@@ -179,7 +183,7 @@ const EN={
 "القرآن":"Quran","الصلاة":"Prayer","الأذكار":"Adhkar","القبلة":"Qibla","القرّاء":"Reciters","السور":"Surahs","ابحث عن سورة…":"Search for a surah…","المفضلة":"Favorites","ش":"N",
 "موقعي":"My location","الحساب بطريقة أم القرى (الفجر 18.5°، العشاء بعد المغرب بـ 90 دقيقة) والعصر بالمذهب الجمهور. قد يختلف عن التقويم الرسمي بدقيقة أو دقيقتين.":"Calculated using Umm al-Qura (Fajr 18.5°, Isha 90 minutes after Maghrib) and the majority opinion for Asr. Times may differ from the official calendar by a minute or two.",
 "إعادة الضبط":"Reset","اضغط على الذكر لإنقاص العدّاد.":"Tap a dhikr to decrease its count.","تفعيل البوصلة":"Enable compass","تحديد موقعي":"Find my location","اختر سورة للبدء":"Choose a surah to start",
-"تكرار":"Repeat","السورة التالية":"Next surah","السورة السابقة":"Previous surah","تشغيل":"Play","السرعة":"Speed","سورة":"Surah","لا توجد نتائج":"No results",
+"تكرار":"Repeat","السورة التالية":"Next surah","السورة السابقة":"Previous surah","تشغيل":"Play","السرعة":"Speed","سورة":"Surah","لا توجد نتائج":"No results","هل ترغب بالانتقال بين السور بعد انتهاء السورة؟":"Would you like to move to the next surah when the current surah ends?",
 "الفجر":"Fajr","الشروق":"Sunrise","الظهر":"Dhuhr","العصر":"Asr","المغرب":"Maghrib","العشاء":"Isha","الرياض":"Riyadh","مكة المكرمة":"Makkah","المدينة المنورة":"Madinah","جدة":"Jeddah","الدمام":"Dammam","القاهرة":"Cairo","دبي":"Dubai","الكويت":"Kuwait City","عمّان":"Amman","صنعاء":"Sana'a","موقعي الحالي":"My current location",
 "مفعّل":"On","مغلق":"Off","تنبيه الأذان":"Adhan alert","القادم":"Next","حان الآن موعد صلاة":"It's time for","حان موعد صلاة":"Prayer time:","الموقع":"Location","من الشمال":"from north","تبعد مكة ≈":"Makkah is about","كم":"km away",
 "تعذّر تحميل الصوت هنا.":"Unable to load audio here.","افتح الملف مباشرة":"Open the audio file directly","أو جرّب قارئًا آخر.":"or try another reciter.",
@@ -200,6 +204,7 @@ document.querySelector('meta[name="apple-mobile-web-app-title"]').content=tr("ي
 document.querySelectorAll("[data-i18n]").forEach(el=>{el.textContent=tr(el.dataset.i18n)});
 $("lang").textContent=lang==="ar"?"English":"العربية";$("q").placeholder=tr("ابحث عن سورة…");
 ["rep","nx","pl","pv","sp"].forEach(id=>$(id).title=tr(({rep:"تكرار",nx:"السورة التالية",pl:"تشغيل",pv:"السورة السابقة",sp:"السرعة"})[id]));
+ $("anxt").title=tr("هل ترغب بالانتقال بين السور بعد انتهاء السورة؟");$("anxt").setAttribute("aria-label",$("anxt").title);
 if(si>=0)$("tt").textContent=tr("سورة")+" "+S[si];$("favTab").firstChild.textContent="★ ";
 }
 const S="الفاتحة,البقرة,آل عمران,النساء,المائدة,الأنعام,الأعراف,الأنفال,التوبة,يونس,هود,يوسف,الرعد,إبراهيم,الحجر,النحل,الإسراء,الكهف,مريم,طه,الأنبياء,الحج,المؤمنون,النور,الفرقان,الشعراء,النمل,القصص,العنكبوت,الروم,لقمان,السجدة,الأحزاب,سبأ,فاطر,يس,الصافات,ص,الزمر,غافر,فصلت,الشورى,الزخرف,الدخان,الجاثية,الأحقاف,محمد,الفتح,الحجرات,ق,الذاريات,الطور,النجم,القمر,الرحمن,الواقعة,الحديد,المجادلة,الحشر,الممتحنة,الصف,الجمعة,المنافقون,التغابن,الطلاق,التحريم,الملك,القلم,الحاقة,المعارج,نوح,الجن,المزمل,المدثر,القيامة,الإنسان,المرسلات,النبأ,النازعات,عبس,التكوير,الانفطار,المطففين,الانشقاق,البروج,الطارق,الأعلى,الغاشية,الفجر,البلد,الشمس,الليل,الضحى,الشرح,التين,العلق,القدر,البينة,الزلزلة,العاديات,القارعة,التكاثر,العصر,الهمزة,الفيل,قريش,الماعون,الكوثر,الكافرون,النصر,المسد,الإخلاص,الفلق,الناس".split(",");
@@ -216,8 +221,9 @@ const R=[
 {n:"ناصر القطامي",u:"https://server6.mp3quran.net/qtm/"},
 {n:"محمد الفقيه",u:"https://archive.org/download/002_20231230/"}];
 const $=id=>document.getElementById(id),au=$("au");
-let ri=0,si=-1,favOnly=false,rep=false,favs=[];
+let ri=0,si=-1,favOnly=false,rep=false,autoNext=false,endedTransition=false,favs=[];
 try{favs=JSON.parse(localStorage.getItem("qfav")||"[]");ri=+(localStorage.getItem("qrec")||0)||0}catch(e){}
+try{autoNext=localStorage.getItem("qautonext")==="1"}catch(e){}
 const pad=n=>String(n).padStart(3,"0"),fmt=t=>isFinite(t)?Math.floor(t/60)+":"+String(Math.floor(t%60)).padStart(2,"0"):"0:00";
 const url=(r,s)=>R[r].u+pad(s+1)+".mp3";
 function save(){try{localStorage.setItem("qfav",JSON.stringify(favs));localStorage.setItem("qrec",ri)}catch(e){}}
@@ -240,11 +246,19 @@ $("favTab").onclick=()=>{favOnly=!favOnly;$("favTab").classList.toggle("on",favO
 $("pl").onclick=()=>{if(si<0)return play(0);au.paused?au.play():au.pause()};
 $("nx").onclick=()=>play(si<0?0:si-1);$("pv").onclick=()=>play(si<0?0:si+1);
 $("rep").onclick=()=>{rep=!rep;$("rep").classList.toggle("on",rep)};
+$("anxt").onclick=()=>{autoNext=!autoNext;$("anxt").classList.toggle("on",autoNext);$("anxt").setAttribute("aria-pressed",String(autoNext));try{localStorage.setItem("qautonext",autoNext?"1":"0")}catch(e){}};
+$("anxt").classList.toggle("on",autoNext);$("anxt").setAttribute("aria-pressed",String(autoNext));
 $("sp").onchange=()=>au.playbackRate=+$("sp").value;
 au.onplay=()=>$("pl").textContent="⏸";au.onpause=()=>$("pl").textContent="▶";
 au.ontimeupdate=()=>{$("cu").textContent=fmt(au.currentTime);if(au.duration)$("seek").value=au.currentTime/au.duration*100};
 au.onloadedmetadata=()=>$("du").textContent=fmt(au.duration);
-au.onended=()=>{rep?(au.currentTime=0,au.play()):play(si+1)};
+au.onended=()=>{
+  if(endedTransition)return;
+  endedTransition=true;
+  setTimeout(()=>endedTransition=false,1000);
+  if(rep){au.currentTime=0;au.play().catch(()=>{});return}
+  if(autoNext&&si>=0&&si<113)play(si+1);
+};
 au.onerror=()=>{if(si>=0)$("msg").innerHTML=`${tr("تعذّر تحميل الصوت هنا.")} <a href="${url(ri,si)}" target="_blank" rel="noopener">${tr("افتح الملف مباشرة")}</a> ${tr("أو جرّب قارئًا آخر.")}`};
 $("seek").oninput=()=>{if(au.duration)au.currentTime=$("seek").value/100*au.duration};
 
