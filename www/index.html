@@ -427,9 +427,15 @@ w:{t:"🌅 الاستيقاظ",d:[["الْحَمْدُ لِلَّهِ الَّذ
 let tc=0,tg=33;
 function drawT(){$("az").innerHTML=`<div class="card"><div class="cd">${tc}${tg?" / "+tg:""}${tg&&tc===tg?" ✓":""}</div><button class="tsb" id="tb">${tr("سَبِّح")}</button><div class="chips" style="justify-content:center">${[33,99,100,0].map(v=>`<button class="chip tg ${v===tg?"on":""}" data-v="${v}">${v||tr("بلا حد")}</button>`).join("")}</div></div>`}
 let ak=new Date().getHours()<12?"m":"e",cnt={};
-function adhkarAyahCards(surah,firstAyah,text,separator){
-const ayahs=firstAyah===255?[text]:text.split(separator);
-return `<div class="ayah-list">${ayahs.map((ayah,i)=>{const n=firstAyah===255?255:i+1;const ar=String(n).replace(/[0-9]/g,d=>"٠١٢٣٤٥٦٧٨٩"[d]);return`<div class="ayah-card"><div class="ayah-label">${surah} — الآية ${ar}</div><p>${ayah.trim()}</p></div>`}).join("")}</div>`;
+const adhkarBasmala="بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ";
+const adhkarShortSurahs={
+112:"قُلْ هُوَ اللَّهُ أَحَدٌ ﴿١﴾ اللَّهُ الصَّمَدُ ﴿٢﴾ لَمْ يَلِدْ وَلَمْ يُولَدْ ﴿٣﴾ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ ﴿٤﴾",
+113:"قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ﴿١﴾ مِن شَرِّ مَا خَلَقَ ﴿٢﴾ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ ﴿٣﴾ وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ﴿٤﴾ وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ ﴿٥﴾",
+114:"قُلْ أَعُوذُ بِرَبِّ النَّاسِ ﴿١﴾ مَلِكِ النَّاسِ ﴿٢﴾ إِلَٰهِ النَّاسِ ﴿٣﴾ مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ﴿٤﴾ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ﴿٥﴾ مِنَ الْجِنَّةِ وَالنَّاسِ ﴿٦﴾"
+};
+function adhkarAyahCard(surah,text,verseNumber){
+const number=verseNumber?` — الآية ${String(verseNumber).replace(/[0-9]/g,d=>"٠١٢٣٤٥٦٧٨٩"[d])}`:"";
+return `<div class="ayah-list"><div class="ayah-card"><div class="ayah-label">${surah}${number}</div><p>${text.trim()}</p></div></div>`;
 }
 function drawA(){
 $("ak").innerHTML=[...Object.keys(AD),"t","n","r"].map(k=>`<button class="chip ${k===ak?"on":""}" data-k="${k}">${tr({t:"📿 سبحة",n:"✨ الأسماء الحسنى",r:"📖 ورد القرآن"}[k]||AD[k].t)}</button>`).join("");
@@ -438,10 +444,10 @@ if(!cnt[ak])cnt[ak]=AD[ak].d.map(x=>x[1]);
 $("az").innerHTML=AD[ak].d.map((x,i)=>{
  const r=cnt[ak][i];
  let body=`<p>${x[0]}</p>`;
- if((ak==="m"||ak==="e")&&i===0)body=adhkarAyahCards("سورة البقرة",255,x[0],/(?=ۚ|ۗ|ۖ)/g);
- if((ak==="m"||ak==="e")&&i===1)body=adhkarAyahCards("سورة الإخلاص",112,x[0],/(?=۝)/g);
- if((ak==="m"||ak==="e")&&i===2)body=adhkarAyahCards("سورة الفلق",113,x[0],/(?=۝)/g);
- if((ak==="m"||ak==="e")&&i===3)body=adhkarAyahCards("سورة الناس",114,x[0],/(?=۝)/g);
+ if((ak==="m"||ak==="e")&&i===0)body=adhkarAyahCard("سورة البقرة",x[0],255);
+ if((ak==="m"||ak==="e")&&i===1)body=adhkarAyahCard("سورة الإخلاص",adhkarBasmala+" "+adhkarShortSurahs[112]);
+ if((ak==="m"||ak==="e")&&i===2)body=adhkarAyahCard("سورة الفلق",adhkarBasmala+" "+adhkarShortSurahs[113]);
+ if((ak==="m"||ak==="e")&&i===3)body=adhkarAyahCard("سورة الناس",adhkarBasmala+" "+adhkarShortSurahs[114]);
  return`<div class="zk ${r===0?"done":""}" data-i="${i}">${body}<span class="bd">${r===0?tr("✓ تم"):tr("المتبقي")+" "+r+" "+tr("من")+" "+x[1]}</span></div>`
 }).join("")}
 $("ak").onclick=e=>{const b=e.target.closest(".chip");if(b){ak=b.dataset.k;drawA()}};
