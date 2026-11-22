@@ -428,7 +428,7 @@ let tc=0,tg=33;
 function drawT(){$("az").innerHTML=`<div class="card"><div class="cd">${tc}${tg?" / "+tg:""}${tg&&tc===tg?" ✓":""}</div><button class="tsb" id="tb">${tr("سَبِّح")}</button><div class="chips" style="justify-content:center">${[33,99,100,0].map(v=>`<button class="chip tg ${v===tg?"on":""}" data-v="${v}">${v||tr("بلا حد")}</button>`).join("")}</div></div>`}
 let ak=new Date().getHours()<12?"m":"e",cnt={};
 function adhkarAyahCards(surah,firstAyah,text,separator){
-const ayahs=text.split(separator);
+const ayahs=firstAyah===255?[text]:text.split(separator);
 return `<div class="ayah-list">${ayahs.map((ayah,i)=>{const n=firstAyah===255?255:i+1;const ar=String(n).replace(/[0-9]/g,d=>"٠١٢٣٤٥٦٧٨٩"[d]);return`<div class="ayah-card"><div class="ayah-label">${surah} — الآية ${ar}</div><p>${ayah.trim()}</p></div>`}).join("")}</div>`;
 }
 function drawA(){
